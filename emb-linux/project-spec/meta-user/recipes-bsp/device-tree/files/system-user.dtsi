@@ -1,0 +1,65 @@
+/include/ "system-conf.dtsi"
+/ {
+    gpio-leds {
+        compatible = "gpio-leds";
+        user-led {
+            label = "user-led";
+            gpios = <&gpio0 47 0>;
+            default-state = "on";
+            linux,default-trigger = "heartbeat";
+        };
+    };
+};
+
+&i2c1 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    obdh-power@40 {
+        compatible = "ti,ina219";
+        reg = <0x40>;
+        shunt-resistor = <47000>;
+    };
+
+    main-radio-power@43 {
+        compatible = "ti,ina219";
+        reg = <0x43>;
+        shunt-resistor = <47000>;
+    };
+
+    edc-power@41 {
+        compatible = "ti,ina219";
+        reg = <0x41>;
+        shunt-resistor = <47000>;
+    };
+
+    beacon-power@42 {
+        compatible = "ti,ina219";
+        reg = <0x42>;
+        shunt-resistor = <47000>;
+    };
+
+    antenna-power@44 {
+        compatible = "ti,ina219";
+        reg = <0x44>;
+        shunt-resistor = <47000>;
+    };
+
+    payload-power@45 {
+        compatible = "ti,ina219";
+        reg = <0x45>;
+        shunt-resistor = <47000>;
+    };
+
+    beacon2-power@46 {
+        compatible = "ti,ina219";
+        reg = <0x46>;
+        shunt-resistor = <47000>;
+    };
+
+    tmp102@48 {
+            compatible = "ti,tmp102";
+            reg = <0x48>;
+            #thermal-sensor-cells = <1>;
+    };
+};
