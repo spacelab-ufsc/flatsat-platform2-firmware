@@ -741,7 +741,7 @@ CONFIG_pciutils=y
 #
 # pkgconfig 
 #
-# CONFIG_pkgconfig is not set
+CONFIG_pkgconfig=y
 # CONFIG_pkgconfig-dbg is not set
 # CONFIG_pkgconfig-dev is not set
 
@@ -3842,7 +3842,6 @@ CONFIG_fsatctl=y
 # CONFIG_gpio-demo is not set
 CONFIG_peekpoke=y
 CONFIG_read-sensors=y
-CONFIG_read-sensors-service=y
 
 #
 # PetaLinux RootFS Settings

@@ -4,5 +4,4 @@
 CONFIG_gpio-demo
 CONFIG_peekpoke
 CONFIG_read-sensors
-CONFIG_read-sensors-service
 CONFIG_fsatctl

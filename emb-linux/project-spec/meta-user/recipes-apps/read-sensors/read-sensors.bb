@@ -6,41 +6,35 @@ SECTION = "PETALINUX/apps"
 LICENSE = "GPL-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
-SRC_URI = "file://sensor.cpp \
-           file://sensor.hpp \
-           file://log.hpp \
-           file://log.cpp \
-           file://sensor-manager.cpp \
-           file://sensor-manager.hpp \
-           file://daemon.cpp \
-           file://daemon.hpp \
-           file://parser.hpp \
-           file://main.cpp \
-           file://LICENSE \
-           file://Makefile \
-		  "
+SRCREV = "${AUTOREV}"
 
-S = "${WORKDIR}"
+SRC_URI = "git://github.com/c-porto/fsat_read_sensors.git;branch=master;protocol=https"
 
-do_compile() {
-	     oe_runmake
-}
+PV = "0.1.0+git${SRCPV}"
+
+S = "${WORKDIR}/git"
+
+DEPENDS = "sqlite3"
+
+inherit pkgconfig meson systemd
+
+EXTRA_OEMESON += "-Dsystemd_unitdir=${systemd_system_unitdir}"
+EXTRA_OEMESON += "-Dinstall_src=false"
+EXTRA_OEMESON += "-Dsrc_install_dir=${D}/etc/fsat/read-sensors"
+
+SYSTEMD_SERVICE:${PN} = "read-sensors.service read-sensors.socket"
+
+FILES_${PN} += "${systemd_system_unitdir}/read-sensors.service"
+FILES_${PN} += "${systemd_system_unitdir}/read-sensors.socket"
+FILES_${PN} += "${bindir}/read-sensors"
+
+# Automatically enable the service at boot
+SYSTEMD_AUTO_ENABLE = "enable"
 
 do_install() {
          install -d ${D}/etc/fsat/read-sensors
-
-         install -m 0644 ${WORKDIR}/sensor-manager.hpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/sensor-manager.cpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/sensor.cpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/sensor.hpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/main.cpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/log.cpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/log.hpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/daemon.hpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/daemon.cpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/parser.hpp ${D}/etc/fsat/read-sensors/
-         install -m 0644 ${WORKDIR}/Makefile ${D}/etc/fsat/read-sensors/
-
+         install -d ${D}${systemd_system_unitdir}
 	     install -d ${D}${bindir}
-	     install -m 0755 read-sensors ${D}${bindir}
+
+         meson install --destdir="${D}" 
 }
