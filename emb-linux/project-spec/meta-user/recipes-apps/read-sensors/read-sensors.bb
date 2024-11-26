@@ -19,8 +19,8 @@ DEPENDS = "sqlite3"
 inherit pkgconfig meson systemd
 
 EXTRA_OEMESON += "-Dsystemd_unitdir=${systemd_system_unitdir}"
-EXTRA_OEMESON += "-Dinstall_src=false"
-EXTRA_OEMESON += "-Dsrc_install_dir=${D}/etc/fsat/read-sensors"
+EXTRA_OEMESON += "-Dinstall_src=true"
+EXTRA_OEMESON += "-Dsrc_install_dir=/etc/fsat/read-sensors"
 
 SYSTEMD_SERVICE:${PN} = "read-sensors.service read-sensors.socket"
 
