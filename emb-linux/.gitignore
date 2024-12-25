@@ -12,3 +12,4 @@ pre-built/linux/
 /components/yocto
 **/.Xil
 hardware/
+*.log*
