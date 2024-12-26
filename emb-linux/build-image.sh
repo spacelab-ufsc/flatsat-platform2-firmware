@@ -9,7 +9,7 @@ sed -i 's/BOOT.BIN/boot.bin/g' ./project-spec/meta-user/conf/petalinuxbsp.conf
 petalinux-build 
 
 # Packaging the image
-petalinux-package --boot --u-boot --fpga
+petalinux-package --boot --u-boot --fpga --force
 
 # Generate the .wic file for QEMU 
 petalinux-package --wic
