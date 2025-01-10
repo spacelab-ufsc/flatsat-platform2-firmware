@@ -14,7 +14,7 @@ PV = "0.1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "sqlite3"
+DEPENDS = "sqlite3 nlohmann-json-dev"
 
 inherit pkgconfig meson systemd
 
@@ -24,9 +24,9 @@ EXTRA_OEMESON += "-Dsrc_install_dir=/etc/fsat/read-sensors"
 
 SYSTEMD_SERVICE:${PN} = "read-sensors.service read-sensors.socket"
 
-FILES_${PN} += "${systemd_system_unitdir}/read-sensors.service"
-FILES_${PN} += "${systemd_system_unitdir}/read-sensors.socket"
-FILES_${PN} += "${bindir}/read-sensors"
+FILES:${PN} += "${systemd_system_unitdir}/read-sensors.service"
+FILES:${PN} += "${systemd_system_unitdir}/read-sensors.socket"
+FILES:${PN} += "${bindir}/read-sensors"
 
 # Automatically enable the service at boot
 SYSTEMD_AUTO_ENABLE = "enable"
