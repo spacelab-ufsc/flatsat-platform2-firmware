@@ -1,34 +1,35 @@
-#
-# This file is the read-sensors recipe.
-#
 SUMMARY = "FlatSat2 command line test suite control"
 SECTION = "PETALINUX/apps"
 LICENSE = "GPL-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
-SRC_URI = "file://service.cpp \
-           file://service.h \
-           file://main.cpp \
-           file://read-sensors.h \
-           file://LICENSE \
-           file://Makefile \
-		  "
+SRCREV = "${AUTOREV}"
 
-S = "${WORKDIR}"
+SRC_URI = "git://github.com/c-porto/fsatctl.git;branch=master;protocol=https"
 
-do_compile() {
-	     oe_runmake
-}
+PV = "0.2.1+git${SRCPV}"
+
+S = "${WORKDIR}/git"
+
+DEPENDS = "nlohmann-json"
+
+inherit pkgconfig meson
+
+FSATCTL_SRC_DIR = "${datadir}/fsatctl"
+
+EXTRA_OEMESON += "-Dinstall_src=true"
+EXTRA_OEMESON += "-Dsrc_install_dir=${FSATCTL_SRC_DIR}"
+
+FILES:${PN} += "${bindir}/fsatctl"
+
+FILES:${PN}-dev = " \ 
+            ${FSATCTL_SRC_DIR}/include \
+            ${FSATCTL_SRC_DIR}/src \
+            "
 
 do_install() {
-         install -d ${D}/etc/fsat/fsatctl
-
-         install -m 0644 ${WORKDIR}/main.cpp ${D}/etc/fsat/fsatctl/
-         install -m 0644 ${WORKDIR}/read-sensors.h ${D}/etc/fsat/fsatctl/
-         install -m 0644 ${WORKDIR}/service.h ${D}/etc/fsat/fsatctl/
-         install -m 0644 ${WORKDIR}/service.cpp ${D}/etc/fsat/fsatctl/
-         install -m 0644 ${WORKDIR}/Makefile ${D}/etc/fsat/fsatctl/
-
+         install -d ${D}${FSATCTL_SRC_DIR}
 	     install -d ${D}${bindir}
-	     install -m 0755 fsatctl ${D}${bindir}
+
+         meson install --destdir="${D}" 
 }
