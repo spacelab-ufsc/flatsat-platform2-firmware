@@ -13,3 +13,4 @@ pre-built/linux/
 **/.Xil
 hardware/
 *.log*
+*installer.run
