@@ -1,6 +1,3 @@
-#
-# This file is the read-sensors recipe.
-#
 SUMMARY = "FlatSat2 Read Sensors application"
 SECTION = "PETALINUX/apps"
 LICENSE = "GPL-2.0"
@@ -10,11 +7,11 @@ SRCREV = "${AUTOREV}"
 
 SRC_URI = "git://github.com/c-porto/fsat_read_sensors.git;branch=dev;protocol=https"
 
-PV = "0.2.1+git${SRCPV}"
+PV = "0.2.2+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "sqlite3 nlohmann-json systemd"
+DEPENDS = "sqlite3 nlohmann-json libiio systemd"
 
 inherit pkgconfig meson systemd
 
