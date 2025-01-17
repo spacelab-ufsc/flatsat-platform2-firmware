@@ -27,7 +27,7 @@ FILES:${PN} += "${systemd_system_unitdir}/read-sensors.service"
 FILES:${PN} += "${systemd_system_unitdir}/read-sensors.socket"
 FILES:${PN} += "${bindir}/read-sensors"
 
-FILES:${PN}-dev = "${RS_SRC_DIR}"
+FILES:${PN}-src = "${RS_SRC_DIR}"
 
 # Automatically enable the service at boot
 SYSTEMD_AUTO_ENABLE = "enable"

@@ -22,7 +22,7 @@ EXTRA_OEMESON += "-Dsrc_install_dir=${FSATCTL_SRC_DIR}"
 
 FILES:${PN} += "${bindir}/fsatctl"
 
-FILES:${PN}-dev = " \ 
+FILES:${PN}-src = " \ 
             ${FSATCTL_SRC_DIR}/include \
             ${FSATCTL_SRC_DIR}/src \
             "
