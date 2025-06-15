@@ -1,4 +1,6 @@
 /include/ "system-conf.dtsi"
+/include/ "avnet-bsp.dtsi"
+
 / {
     gpio-leds {
         compatible = "gpio-leds";
