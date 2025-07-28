@@ -1,0 +1,46 @@
+# Copyright (C) 2024, Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+RM = rm -rf
+VIVADO = $(XILINX_VIVADO)/bin/vivado
+SDTGEN = $(XILINX_VIVADO)/bin/sdtgen
+
+JOBS ?= 16
+PROJ_NAME ?= flatsat2
+PLATFORM_NAME ?= floripasat-2
+
+VIV_PRJ_DIR = hw_project
+SDT_PRJ_DIR = hw_project_sdt
+VIV_SCRIPTS_DIR = scripts
+
+VIV_XSA = $(VIV_PRJ_DIR)/*.xsa
+VIV_SRC = $(VIV_SCRIPTS_DIR)/main.tcl
+SDTGEN_SRC = $(VIV_SCRIPTS_DIR)/gen_sdt.tcl
+
+.PHONY: help
+help:
+	@echo 'Usage:'
+	@echo ''
+	@echo '  make xsa'
+	@echo '    Generate flatsat2 base xsa.'
+	@echo '  make sdt'
+	@echo '    Generate the SDT files from XSA'
+	@echo '  make all'
+	@echo '    This will generate both XSA and SDT'
+	@echo 'Note you can pass Args JOBS, PLATFORM_NAME and PROJ_NAME'
+	@echo ''
+
+.PHONY: all
+all: xsa sdt
+
+xsa: $(VIV_XSA)
+$(VIV_XSA): $(VIV_SRC)
+	$(VIVADO) -mode batch -notrace -source $(VIV_SRC) -tclargs -jobs $(JOBS) -proj_name $(PROJ_NAME) -platform_name $(PLATFORM_NAME)
+
+sdt:
+	$(SDTGEN) $(SDTGEN_SRC) -proj_dir $(VIV_PRJ_DIR) -xsa_name $(PROJ_NAME) -outdir $(SDT_PRJ_DIR)
+
+.PHONY: clean
+clean:
+	$(RM) $(VIV_PRJ_DIR) $(SDT_PRJ_DIR) vivado* .Xil *dynamic* *.log *.xpe
+
