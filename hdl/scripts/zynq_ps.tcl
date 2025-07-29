@@ -99,10 +99,8 @@ namespace eval ::fsat_bd {
             CONFIG.PCW_MIO_0_SLEW {slow} \
             CONFIG.PCW_MIO_10_IOTYPE {LVCMOS 3.3V} \
             CONFIG.PCW_MIO_10_PULLUP {disabled} \
-            CONFIG.PCW_MIO_10_SLEW {slow} \
             CONFIG.PCW_MIO_11_IOTYPE {LVCMOS 3.3V} \
             CONFIG.PCW_MIO_11_PULLUP {disabled} \
-            CONFIG.PCW_MIO_11_SLEW {slow} \
             CONFIG.PCW_MIO_12_IOTYPE {LVCMOS 3.3V} \
             CONFIG.PCW_MIO_12_PULLUP {disabled} \
             CONFIG.PCW_MIO_12_SLEW {slow} \
@@ -337,6 +335,8 @@ namespace eval ::fsat_bd {
             CONFIG.PCW_USE_FABRIC_INTERRUPT {1} \
             CONFIG.PCW_USE_M_AXI_GP0 {0} \
             CONFIG.PCW_USE_M_AXI_GP1 {0} \
+            CONFIG.PCW_CAN0_CAN0_IO {MIO 10 .. 11} \
+            CONFIG.PCW_CAN0_PERIPHERAL_ENABLE {1} \
         ] $zynq_ps
 
         return $zynq_ps
