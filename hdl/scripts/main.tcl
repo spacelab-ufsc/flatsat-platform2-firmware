@@ -31,7 +31,7 @@ for { set i 0 } { $i < $argc } { incr i } {
   }
  }
 	        
-create_project $proj_name $proj_dir/$proj_name -part xc7z020clg400-1
+create_project $proj_name $proj_dir/$proj_name -force -part xc7z020clg400-1
 
 # Project configuration
 set obj [current_project]
@@ -96,6 +96,8 @@ if { $board_part != ""} {
 
 puts $fd "BLOCK DESIGN: $proj_name"
 
+puts $fd "Git Commit: [exec git rev-parse HEAD]"
+
 set columns {%40s%30s%15s%50s}
 puts $fd [string repeat - 150]
 puts $fd [format $columns "MODULE INSTANCE NAME" "IP TYPE" "IP VERSION" "IP"]
@@ -114,6 +116,23 @@ wait_on_run synth_1
 launch_runs impl_1 -to_step write_bitstream
             
 wait_on_run impl_1
+
+set bitstream_path [get_files -filter {NAME =~ *.bit && FILE_TYPE == "Bitstream"}]
+
+if {[llength $bitstream_path] == 0} {
+    error "Bitstream not found! Check implementation run."
+}
+
+set bitstream_path [lindex $bitstream_path 0]
+set bitstream_dest [file join $outputs_dir [file tail $bitstream_path]]
+
+if {[catch {file copy -force $bitstream_path $bitstream_dest} error_msg]} {
+    puts "ERROR: Failed to copy bitstream: $error_msg"
+} else {
+    puts "Bitstream copied to: $bitstream_dest"
+}
+
+puts "INFO: Exporting hardware platform..."
         
 open_run impl_1        
 write_hw_platform -fixed -include_bit -file $outputs_dir/${proj_name}.xsa
