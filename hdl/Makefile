@@ -42,5 +42,4 @@ sdt:
 
 .PHONY: clean
 clean:
-	$(RM) $(VIV_PRJ_DIR) $(SDT_PRJ_DIR) vivado* .Xil *dynamic* *.log *.xpe
-
+	$(RM) $(VIV_PRJ_DIR) $(SDT_PRJ_DIR)
