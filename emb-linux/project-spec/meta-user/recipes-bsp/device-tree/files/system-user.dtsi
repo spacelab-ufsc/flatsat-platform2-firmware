@@ -11,6 +11,10 @@
     };
 };
 
+&i2c0 {
+	clock-frequency = <100000>;
+};
+
 &i2c1 {
     #address-cells = <1>;
     #size-cells = <0>;
