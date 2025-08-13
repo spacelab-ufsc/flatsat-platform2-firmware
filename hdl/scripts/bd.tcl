@@ -34,9 +34,15 @@ namespace eval ::fsat_bd {
 
         # IIC for sensors
         set axi_iic [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_sens_0]
+        set_property -dict [list \
+            CONFIG.IIC_FREQ_KHZ {400} \
+        ] $axi_iic
 
         # IIC for open drain translator
         set axi_iic_0 [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_0]
+        set_property -dict [list \
+            CONFIG.IIC_FREQ_KHZ {100} \
+        ] $axi_iic_0
         
         # SPI core for LTC2983
         set ltc_spi [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_quad_spi:3.2 axi_quad_spi_0]
@@ -114,6 +120,12 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In14]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In15]
         connect_bd_net [get_bd_pins irq_concat/dout] [get_bd_pins zynq_ps/IRQ_F2P]
+
+        # Disable Zynq PS 
+        set_property -dict [list \
+            CONFIG.PCW_I2C0_PERIPHERAL_ENABLE {0} \
+            CONFIG.PCW_I2C1_PERIPHERAL_ENABLE {0} \
+        ] $zynq_ps
 
         # Set PFM properties
         set_property SYNTH_CHECKPOINT_MODE "Hierarchical" [get_files [current_bd_design].bd] 
