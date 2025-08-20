@@ -1,4 +1,6 @@
 /include/ "system-conf.dtsi"
+/include/ "avnet-bsp.dtsi"
+
 / {
     gpio-leds {
         compatible = "gpio-leds";
@@ -11,59 +13,126 @@
     };
 };
 
-&i2c0 {
+&axi_iic_0 {
+    status = "okay";
 	clock-frequency = <100000>;
 };
 
-&i2c1 {
+&axi_iic_sens_0 {
+    status = "okay";
+	clock-frequency = <400000>;
     #address-cells = <1>;
     #size-cells = <0>;
 
-    obdh-power@40 {
+    ina219@40 {
         compatible = "ti,ina219";
         reg = <0x40>;
         shunt-resistor = <47000>;
+        label = "h1-45_46";
     };
 
-    main-radio-power@43 {
+    ina219@43 {
         compatible = "ti,ina219";
         reg = <0x43>;
         shunt-resistor = <47000>;
+        label = "h1-49_50";
     };
 
-    edc-power@41 {
+    ina219@41 {
         compatible = "ti,ina219";
         reg = <0x41>;
         shunt-resistor = <47000>;
+        label = "h1-47_48";
     };
 
-    beacon-power@42 {
+    ina219@42 {
         compatible = "ti,ina219";
         reg = <0x42>;
         shunt-resistor = <47000>;
+        label = "h1-51_52";
     };
 
-    antenna-power@44 {
+    ina219@44 {
         compatible = "ti,ina219";
         reg = <0x44>;
         shunt-resistor = <47000>;
+        label = "h2-35_36";
     };
 
-    payload-power@45 {
+    ina219@45 {
         compatible = "ti,ina219";
         reg = <0x45>;
         shunt-resistor = <47000>;
+        label = "h2-25_26";
     };
 
-    beacon2-power@46 {
+    ina219@46 {
         compatible = "ti,ina219";
         reg = <0x46>;
         shunt-resistor = <47000>;
+        label = "h2-27_28";
     };
 
-    tmp102@48 {
-            compatible = "ti,tmp102";
-            reg = <0x48>;
-            #thermal-sensor-cells = <1>;
+    tmp112@48 {
+        compatible = "ti,tmp112";
+        reg = <0x48>;
+        #thermal-sensor-cells = <1>;
+        label = "ambient-temp";
+    };
+};
+
+&axi_quad_spi_0 {
+     ltc2983: temperature-sensor@0 {
+        compatible = "adi,ltc2983";
+        reg = <0>;
+        spi-max-frequency = <10000000>;
+
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        thermocouple@1 {
+            reg = <1>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@3 {
+            reg = <3>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@5 {
+            reg = <5>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@7 {
+            reg = <7>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@9 {
+            reg = <9>;
+            adi,sensor-type = <2>;
+        };
+        
+        thermocouple@11 {
+            reg = <11>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@13 {
+            reg = <13>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@15 {
+            reg = <15>;
+            adi,sensor-type = <2>;
+        };
+
+        thermocouple@19 {
+            reg = <19>;
+            adi,sensor-type = <2>;
+        };
     };
 };
