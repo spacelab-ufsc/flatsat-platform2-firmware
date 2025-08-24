@@ -73,10 +73,7 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M02_ARESETN]
 
         # LTC2983 SPI interface
-        make_bd_pins_external -name ltc2983_spi_sck_o [get_bd_pins axi_quad_spi_0/sck_o]
-        make_bd_pins_external -name ltc2983_spi_io0_i [get_bd_pins axi_quad_spi_0/io0_o]
-        make_bd_pins_external -name ltc2983_spi_io1_o [get_bd_pins axi_quad_spi_0/io1_i]
-        make_bd_pins_external -name ltc2983_spi_ss_o [get_bd_pins axi_quad_spi_0/ss_o]
+        make_bd_intf_pins_external -name ltc2983_spi [get_bd_intf_pins axi_quad_spi_0/SPI_0]
         connect_bd_intf_net [get_bd_intf_pins axi_quad_spi_0/AXI_LITE] [get_bd_intf_pins axi_cpu_interconnect/M01_AXI]
         connect_bd_net [get_bd_pins axi_quad_spi_0/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
         connect_bd_net [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins zynq_ps/FCLK_CLK0]
