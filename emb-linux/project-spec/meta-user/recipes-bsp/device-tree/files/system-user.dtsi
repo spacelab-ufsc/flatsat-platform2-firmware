@@ -20,7 +20,7 @@
 
 &axi_iic_sens_0 {
     status = "okay";
-	clock-frequency = <400000>;
+	clock-frequency = <100000>;
     #address-cells = <1>;
     #size-cells = <0>;
 
@@ -85,7 +85,7 @@
      ltc2983: temperature-sensor@0 {
         compatible = "adi,ltc2983";
         reg = <0>;
-        spi-max-frequency = <10000000>;
+        spi-max-frequency = <1000000>;
 
         #address-cells = <1>;
         #size-cells = <0>;
@@ -93,46 +93,55 @@
         thermocouple@1 {
             reg = <1>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@3 {
             reg = <3>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@5 {
             reg = <5>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@7 {
             reg = <7>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@9 {
             reg = <9>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
         
         thermocouple@11 {
             reg = <11>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@13 {
             reg = <13>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@15 {
             reg = <15>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
 
         thermocouple@19 {
             reg = <19>;
             adi,sensor-type = <2>;
+            adi,single-ended;
         };
     };
 };
