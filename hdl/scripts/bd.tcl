@@ -23,6 +23,10 @@ namespace eval ::fsat_bd {
         # Ground for SDIO_WP
         set xlconstant_0 [create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0]
         set_property CONFIG.CONST_VAL {0} $xlconstant_0
+        
+        # VCC for AXI Quad SPI
+        set xlconstant_1 [create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_1]
+        set_property CONFIG.CONST_VAL {1} $xlconstant_1
 
         # F2P interrupt concat
         set irq_concat [create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 irq_concat]
@@ -31,6 +35,30 @@ namespace eval ::fsat_bd {
         # Main processor interconnect GP0
         set axi_gp0 [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_cpu_interconnect]
         set_property -dict [list CONFIG.NUM_MI {3} CONFIG.NUM_SI {1}] $axi_gp0
+
+        # Clock Wizard
+        set clock_wiz [create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0]
+        set_property -dict [list \
+            CONFIG.CLKOUT1_DRIVES {BUFG} \
+            CONFIG.CLKOUT1_JITTER {191.387} \
+            CONFIG.CLKOUT1_PHASE_ERROR {98.575} \
+            CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {16.0000} \
+            CONFIG.CLKOUT2_DRIVES {BUFG} \
+            CONFIG.CLKOUT3_DRIVES {BUFG} \
+            CONFIG.CLKOUT4_DRIVES {BUFG} \
+            CONFIG.CLKOUT5_DRIVES {BUFG} \
+            CONFIG.CLKOUT6_DRIVES {BUFG} \
+            CONFIG.CLKOUT7_DRIVES {BUFG} \
+            CONFIG.ENABLE_CLOCK_MONITOR {false} \
+            CONFIG.FEEDBACK_SOURCE {FDBK_AUTO} \
+            CONFIG.MMCM_BANDWIDTH {OPTIMIZED} \
+            CONFIG.MMCM_CLKFBOUT_MULT_F {10.000} \
+            CONFIG.MMCM_CLKOUT0_DIVIDE_F {62.500} \
+            CONFIG.MMCM_COMPENSATION {ZHOLD} \
+            CONFIG.PRIMITIVE {MMCM} \
+            CONFIG.USE_LOCKED {false} \
+            CONFIG.RESET_TYPE {ACTIVE_LOW} \
+        ] $clock_wiz
 
         # IIC for sensors
         set axi_iic [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_sens_0]
@@ -72,13 +100,26 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M01_ARESETN]
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M02_ARESETN]
 
+        # Clock Wizard
+        connect_bd_net [get_bd_pins clk_wiz_0/resetn] [get_bd_pins zynq_ps/FCLK_RESET0_N]
+        connect_bd_net [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins zynq_ps/FCLK_CLK0]
+
         # LTC2983 SPI interface
-        make_bd_intf_pins_external -name ltc2983_spi [get_bd_intf_pins axi_quad_spi_0/SPI_0]
+        #make_bd_intf_pins_external -name ltc2983_spi [get_bd_intf_pins axi_quad_spi_0/SPI_0]
+        create_bd_port -dir O -type clk ltc2983_spi_sck_o
+        create_bd_port -dir O -type data ltc2983_spi_io1_o
+        create_bd_port -dir I -type data ltc2983_spi_io0_i
+        create_bd_port -dir O -type data ltc2983_spi_ss_o
         connect_bd_intf_net [get_bd_intf_pins axi_quad_spi_0/AXI_LITE] [get_bd_intf_pins axi_cpu_interconnect/M01_AXI]
         connect_bd_net [get_bd_pins axi_quad_spi_0/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
-        connect_bd_net [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins zynq_ps/FCLK_CLK0]
+        connect_bd_net [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins clk_wiz_0/clk_out1]
         connect_bd_net [get_bd_pins axi_quad_spi_0/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
         connect_bd_net [get_bd_pins axi_quad_spi_0/ip2intc_irpt] [get_bd_pins irq_concat/In1]
+        connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins axi_quad_spi_0/ss_i]
+        connect_bd_net [get_bd_ports ltc2983_spi_sck_o] [get_bd_pins axi_quad_spi_0/sck_o]
+        connect_bd_net [get_bd_ports ltc2983_spi_io1_o] [get_bd_pins axi_quad_spi_0/io1_o]
+        connect_bd_net [get_bd_ports ltc2983_spi_io0_i] [get_bd_pins axi_quad_spi_0/io0_i]
+        connect_bd_net [get_bd_ports ltc2983_spi_ss_o] [get_bd_pins axi_quad_spi_0/ss_o]
         assign_bd_address -offset 0x41610000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_quad_spi_0/AXI_LITE/Reg]
 
         # Embedded I2C Sensors axi_iic
