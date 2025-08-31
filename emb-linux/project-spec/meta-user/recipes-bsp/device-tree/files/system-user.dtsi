@@ -85,7 +85,10 @@
      ltc2983: ltc2983@0 {
         compatible = "adi,ltc2983";
         reg = <0>;
-        spi-max-frequency = <1000000>;
+        interrupt-parent = <&gpio0>;
+        interrupts = <54 1>;
+
+        spi-max-frequency = <500000>;
 
         #address-cells = <1>;
         #size-cells = <0>;
