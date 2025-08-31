@@ -12,4 +12,7 @@ set_property -dict {PACKAGE_PIN J18 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_
 set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_io0_o]; # SPI_MOSI
 set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_io1_i]; # SPI_MISO
 
+# LTC2983 interrupt pin
+set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS18} [get_ports ltc2983_irq];
+
 set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 35]];

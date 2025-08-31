@@ -81,7 +81,14 @@ namespace eval ::fsat_bd {
             CONFIG.C_NUM_SS_BITS {1} \
             CONFIG.C_NUM_TRANSFER_BITS {8} \
             CONFIG.C_FIFO_DEPTH {16} \
+            CONFIG.Multiples16 {2} \
         ] $ltc_spi
+
+        # Expose GPIO EMIO for LTC2983 irq pin
+        set_property -dict [list \
+            CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {1} \
+            CONFIG.PCW_GPIO_EMIO_GPIO_IO {1} \
+        ] $zynq_ps
 
         # Fixed IO and DDR
         connect_bd_intf_net -intf_net zynq_ps_ddr [get_bd_intf_ports ddr] [get_bd_intf_pins zynq_ps/DDR]
@@ -105,10 +112,10 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins zynq_ps/FCLK_CLK0]
 
         # LTC2983 SPI interface
-        #make_bd_intf_pins_external -name ltc2983_spi [get_bd_intf_pins axi_quad_spi_0/SPI_0]
+        create_bd_port -dir I -type data ltc2983_irq
         create_bd_port -dir O -type clk ltc2983_spi_sck_o
-        create_bd_port -dir O -type data ltc2983_spi_io1_o
-        create_bd_port -dir I -type data ltc2983_spi_io0_i
+        create_bd_port -dir I -type data ltc2983_spi_io1_i
+        create_bd_port -dir O -type data ltc2983_spi_io0_o
         create_bd_port -dir O -type data ltc2983_spi_ss_o
         connect_bd_intf_net [get_bd_intf_pins axi_quad_spi_0/AXI_LITE] [get_bd_intf_pins axi_cpu_interconnect/M01_AXI]
         connect_bd_net [get_bd_pins axi_quad_spi_0/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
@@ -117,9 +124,10 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins axi_quad_spi_0/ip2intc_irpt] [get_bd_pins irq_concat/In1]
         connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins axi_quad_spi_0/ss_i]
         connect_bd_net [get_bd_ports ltc2983_spi_sck_o] [get_bd_pins axi_quad_spi_0/sck_o]
-        connect_bd_net [get_bd_ports ltc2983_spi_io1_o] [get_bd_pins axi_quad_spi_0/io1_o]
-        connect_bd_net [get_bd_ports ltc2983_spi_io0_i] [get_bd_pins axi_quad_spi_0/io0_i]
+        connect_bd_net [get_bd_ports ltc2983_spi_io1_i] [get_bd_pins axi_quad_spi_0/io1_i]
+        connect_bd_net [get_bd_ports ltc2983_spi_io0_o] [get_bd_pins axi_quad_spi_0/io0_o]
         connect_bd_net [get_bd_ports ltc2983_spi_ss_o] [get_bd_pins axi_quad_spi_0/ss_o]
+        connect_bd_net [get_bd_ports ltc2983_irq] [get_bd_pins zynq_ps/GPIO_I]
         assign_bd_address -offset 0x41610000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_quad_spi_0/AXI_LITE/Reg]
 
         # Embedded I2C Sensors axi_iic
