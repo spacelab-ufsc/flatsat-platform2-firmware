@@ -5,6 +5,8 @@ set_property -dict {PACKAGE_PIN K18 IOSTANDARD LVCMOS18} [get_ports {iic_sens_sd
 set_property -dict {PACKAGE_PIN L17 IOSTANDARD LVCMOS18} [get_ports {iic_sens_scl_io}];
 set_property -dict {PACKAGE_PIN G19 IOSTANDARD LVCMOS18} [get_ports {iic_0_sda_io}];
 set_property -dict {PACKAGE_PIN H20 IOSTANDARD LVCMOS18} [get_ports {iic_0_scl_io}];
+set_property -dict {PACKAGE_PIN G18 IOSTANDARD LVCMOS18} [get_ports {iic_1_sda_io}];
+set_property -dict {PACKAGE_PIN J20 IOSTANDARD LVCMOS18} [get_ports {iic_1_scl_io}];
 
 # AXI QUAD SPI Constraints
 set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS18 PULLUP TRUE} [get_ports ltc2983_spi_ss_o]; # SPI_SS

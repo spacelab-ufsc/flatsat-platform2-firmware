@@ -83,9 +83,9 @@ save_bd_design
 validate_bd_design
 close_bd_design $proj_name 
 
-file mkdir $proj_dir/$proj_name/$output_dir
+file mkdir $proj_dir/$output_dir
 
-set outputs_dir $proj_dir/$proj_name/$output_dir
+set outputs_dir $proj_dir/$output_dir
 
 set fd [open $outputs_dir/README.hw w] 
 

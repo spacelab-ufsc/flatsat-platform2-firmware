@@ -15,6 +15,7 @@ namespace eval ::fsat_bd {
         set fixed_io [create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 fixed_io]
         set iic_sens [create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_sens]
         set iic_0 [create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_0]
+        set iic_1 [create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_1]
         set zynq_ps [create_zynq_ps]
 
         # Main processor reset
@@ -34,7 +35,7 @@ namespace eval ::fsat_bd {
         
         # Main processor interconnect GP0
         set axi_gp0 [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_cpu_interconnect]
-        set_property -dict [list CONFIG.NUM_MI {3} CONFIG.NUM_SI {1}] $axi_gp0
+        set_property -dict [list CONFIG.NUM_MI {4} CONFIG.NUM_SI {1}] $axi_gp0
 
         # Clock Wizard
         set clock_wiz [create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0]
@@ -71,6 +72,11 @@ namespace eval ::fsat_bd {
         set_property -dict [list \
             CONFIG.IIC_FREQ_KHZ {100} \
         ] $axi_iic_0
+
+        set axi_iic_1 [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_1]
+        set_property -dict [list \
+            CONFIG.IIC_FREQ_KHZ {100} \
+        ] $axi_iic_1
         
         # SPI core for LTC2983
         set ltc_spi [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_quad_spi:3.2 axi_quad_spi_0]
@@ -101,11 +107,13 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins axi_cpu_interconnect/M00_ACLK]
         connect_bd_net [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins axi_cpu_interconnect/M01_ACLK]
         connect_bd_net [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins axi_cpu_interconnect/M02_ACLK]
+        connect_bd_net [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins axi_cpu_interconnect/M03_ACLK]
         connect_bd_net [get_bd_pins proc_sys_reset_0/interconnect_aresetn] [get_bd_pins axi_cpu_interconnect/ARESETN]
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/S00_ARESETN]
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M00_ARESETN]
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M01_ARESETN]
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M02_ARESETN]
+        connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M03_ARESETN]
 
         # Clock Wizard
         connect_bd_net [get_bd_pins clk_wiz_0/resetn] [get_bd_pins zynq_ps/FCLK_RESET0_N]
@@ -146,13 +154,20 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins axi_iic_0/iic2intc_irpt] [get_bd_pins irq_concat/In2]
         assign_bd_address -offset 0x41620000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_iic_0/S_AXI/Reg]
 
+        # I2C axi_iic for second open drain translator
+        connect_bd_intf_net [get_bd_intf_pins axi_iic_1/S_AXI] [get_bd_intf_pins axi_cpu_interconnect/M03_AXI]
+        connect_bd_net [get_bd_pins axi_iic_1/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
+        connect_bd_net [get_bd_pins axi_iic_1/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+        connect_bd_intf_net [get_bd_intf_pins iic_1] [get_bd_intf_pins axi_iic_1/IIC]
+        connect_bd_net [get_bd_pins axi_iic_1/iic2intc_irpt] [get_bd_pins irq_concat/In3]
+        assign_bd_address -offset 0x41630000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_iic_1/S_AXI/Reg]
+
         # System Reset
         connect_bd_net -net zynq_ps_fclk_clk0 [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins zynq_ps/M_AXI_GP0_ACLK]
         connect_bd_net -net zynq_ps_fclk_reset0_n [get_bd_pins zynq_ps/FCLK_RESET0_N] [get_bd_pins proc_sys_reset_0/ext_reset_in]
         connect_bd_net -net xlconstant_0_dout [get_bd_pins xlconstant_0/dout] [get_bd_pins zynq_ps/SDIO0_WP]
 
         # Fabric Interrupt
-        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In3]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In4]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In5]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In6]
