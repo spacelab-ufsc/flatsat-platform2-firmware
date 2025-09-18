@@ -1,0 +1,8 @@
+[Match]
+Name=can0
+
+[Link]
+RequiredForOnline=no
+
+[CAN]
+BitRate=1M
