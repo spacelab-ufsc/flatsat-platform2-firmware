@@ -17,4 +17,7 @@ set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_
 # LTC2983 interrupt pin
 set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS18} [get_ports ltc2983_irq];
 
+# PWM channels
+set_property -dict {PACKAGE_PIN K14 IOSTANDARD LVCMOS18} [get_ports pwm_0];
+
 set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 35]];
