@@ -5,4 +5,5 @@ KERNEL_FEATURES:append = " bsp.cfg"
 SRC_URI += "file://i2c-sensors.cfg \
             file://serial.cfg \
             file://enable-pwm.cfg \
+            file://enable-overlays.cfg \
             "
