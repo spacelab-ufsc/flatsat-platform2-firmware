@@ -15,7 +15,7 @@
         "usb start;" \
         "mmc dev 0;" \
         "setenv dfu_alt_info " \
-        "\"rootfs ext4 0 2\";" \
+        "\"rootfs part 0 2\";" \
         "dfu 0 mmc 0\0"
 
 #ifdef CONFIG_EXTRA_ENV_SETTINGS
