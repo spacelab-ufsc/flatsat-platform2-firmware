@@ -335,6 +335,8 @@ namespace eval ::fsat_bd {
             CONFIG.PCW_USE_M_AXI_GP1 {0} \
             CONFIG.PCW_CAN0_CAN0_IO {MIO 10 .. 11} \
             CONFIG.PCW_CAN0_PERIPHERAL_ENABLE {1} \
+            CONFIG.PCW_CAN1_CAN1_IO {MIO 12 .. 13} \
+            CONFIG.PCW_CAN1_PERIPHERAL_ENABLE {1} \
             CONFIG.PCW_SPI0_PERIPHERAL_ENABLE {1} \
         ] $zynq_ps
 
