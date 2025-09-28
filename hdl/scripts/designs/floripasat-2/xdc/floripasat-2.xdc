@@ -2,4 +2,4 @@
 
 # Payload UART Constraints
 set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS18} [get_ports {payload_uart16550_tx}];
-set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS18} [get_ports {payload_uart16550_rx}];
+set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS18} [get_ports {payload_uart16550_rx}];
