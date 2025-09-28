@@ -26,9 +26,10 @@ set gp0_ic [get_bd_cells axi_cpu_interconnect]
 set current_mi [get_property CONFIG.NUM_MI $gp0_ic]
 set new_mi [expr {$current_mi + 1}]
 set_property CONFIG.NUM_MI $new_mi $gp0_ic
-connect_bd_intf_net [get_bd_intf_pins axi_payload_uart16550/S_AXI] [get_bd_intf_pins axi_cpu_interconnect/M0${current_mi}_AXI]
-connect_bd_net [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins axi_cpu_interconnect/M0${current_mi}_ACLK]
-connect_bd_net [get_bd_pins axi_cpu_interconnect/M0${current_mi}_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+
+connect_bd_intf_net [get_bd_intf_pins axi_payload_uart16550/S_AXI] [get_bd_intf_pins axi_cpu_interconnect/M${current_mi}_AXI]
+connect_bd_net [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins axi_cpu_interconnect/M${current_mi}_ACLK]
+connect_bd_net [get_bd_pins axi_cpu_interconnect/M${current_mi}_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
 
 connect_bd_net [get_bd_pins axi_payload_uart16550/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
 connect_bd_net [get_bd_pins axi_payload_uart16550/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
