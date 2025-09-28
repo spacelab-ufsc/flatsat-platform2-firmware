@@ -10,6 +10,12 @@
             default-state = "on";
             linux,default-trigger = "heartbeat";
         };
+        emio-led {
+            label = "emio-led";
+            gpios = <&gpio0 55 0>;
+            default-state = "on";
+            linux,default-trigger = "heartbeat";
+        };
     };
 };
 
@@ -19,6 +25,41 @@
 };
 
 &axi_timer_0 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_1 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_2 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_3 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_4 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_5 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_6 {
+    compatible = "xlnx,xps-timer-1.00.a";
+    #pwm-cells = <3>;
+};
+
+&axi_timer_7 {
     compatible = "xlnx,xps-timer-1.00.a";
     #pwm-cells = <3>;
 };
