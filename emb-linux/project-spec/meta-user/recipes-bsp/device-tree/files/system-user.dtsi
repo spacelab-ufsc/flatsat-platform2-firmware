@@ -128,7 +128,6 @@
 };
 
 &spi0 {
-    num-cs = <1>;
     ltc2983: ltc2983@0 {
         compatible = "adi,ltc2983";
         reg = <0>;
