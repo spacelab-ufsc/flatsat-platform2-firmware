@@ -48,3 +48,8 @@ Adding a new Platform
 Adding a new platform is quite simple, just create a new directory under ``scripts/designs`` with the name of the platform, then create a tcl script named ``platform.tcl``, which is the script to be sourced by the main script.
 
 One example on how to do this can be seen looking at ``scripts/designs/floripasat-2``, which contains the PL design for the FloripaSat-2 platform.
+
+Vivado's Docker
+---------------
+
+A docker image to run Vivado is available on the ``docker`` directory, please refer to its README for details.

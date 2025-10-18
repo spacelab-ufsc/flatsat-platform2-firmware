@@ -1,0 +1,7 @@
+**/.Xil/
+**/flatsat2/
+**/hw_project
+*.jou
+*.log
+*.bin
+wi_authentication_key
