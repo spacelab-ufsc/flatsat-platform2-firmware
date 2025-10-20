@@ -15,10 +15,7 @@ set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_
 set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_io1_i]; # SPI_MISO
 
 # LTC2983 interrupt pin
-set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS18} [get_ports ltc2983_irq]; # H2-8
-
-# Test LED
-set_property -dict {PACKAGE_PIN L20 IOSTANDARD LVCMOS18} [get_ports led]; # H1-6
+set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS18} [get_ports ltc2983_irq_tri_io[0]]; # H2-8
 
 # PWM channels
 set_property -dict {PACKAGE_PIN N20 IOSTANDARD LVCMOS18} [get_ports pwm_0]; # H1-26

@@ -57,27 +57,8 @@ namespace eval ::fsat_bd {
         # Expose GPIO EMIO
         set_property -dict [list \
             CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {1} \
-            CONFIG.PCW_GPIO_EMIO_GPIO_IO {2} \
+            CONFIG.PCW_GPIO_EMIO_GPIO_IO {1} \
         ] $zynq_ps
-
-        set emio_concat [create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 emio_concat]
-        set_property -dict [list CONFIG.NUM_PORTS {2}] $emio_concat
-
-        connect_bd_net [get_bd_pins emio_concat/dout] [get_bd_pins zynq_ps/GPIO_I]
-        connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins emio_concat/In1] 
-
-        set emio_slice [create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 emio_slice]
-        set_property -dict [list \
-            CONFIG.DIN_WIDTH {2} \
-            CONFIG.DIN_FROM {1} \
-            CONFIG.DIN_TO {1} \
-            CONFIG.DOUT_WIDTH {1} \
-        ] $emio_slice
-
-        create_bd_port -dir O -type data led
-        connect_bd_net [get_bd_pins emio_slice/din] [get_bd_pins zynq_ps/GPIO_O]
-        connect_bd_net [get_bd_ports led] [get_bd_pins emio_slice/dout]
-
 
         # Fixed IO and DDR
         connect_bd_intf_net -intf_net zynq_ps_ddr [get_bd_intf_ports ddr] [get_bd_intf_pins zynq_ps/DDR]
@@ -99,12 +80,11 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_cpu_interconnect/M03_ARESETN]
 
         # LTC2983 SPI interface
-        create_bd_port -dir O -type data ltc2983_irq
+        create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ltc2983_irq
         create_bd_port -dir O -type clk ltc2983_spi_sck_o
         create_bd_port -dir I -type data ltc2983_spi_io1_i
         create_bd_port -dir O -type data ltc2983_spi_io0_o
         create_bd_port -dir O -type data ltc2983_spi_ss_o
-        connect_bd_net [get_bd_ports ltc2983_irq] [get_bd_pins emio_concat/In0]
         
         connect_bd_net [get_bd_ports ltc2983_spi_sck_o] [get_bd_pins zynq_ps/SPI0_SCLK_o]
         connect_bd_net [get_bd_ports ltc2983_spi_io1_i] [get_bd_pins zynq_ps/SPI0_MISO_i]
@@ -114,6 +94,7 @@ namespace eval ::fsat_bd {
         connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins zynq_ps/SPI0_SS_i]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins zynq_ps/SPI0_SCLK_i]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins zynq_ps/SPI0_MOSI_i]
+        connect_bd_intf_net [get_bd_intf_ports ltc2983_irq] [get_bd_intf_pins zynq_ps/GPIO_0]
 
         # Embedded I2C Sensors axi_iic
         connect_bd_intf_net [get_bd_intf_pins axi_iic_sens_0/S_AXI] [get_bd_intf_pins axi_cpu_interconnect/M00_AXI]
