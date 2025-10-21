@@ -34,3 +34,24 @@ connect_bd_net [get_bd_pins axi_cpu_interconnect/M${current_mi}_ARESETN] [get_bd
 connect_bd_net [get_bd_pins axi_payload_uart16550/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
 connect_bd_net [get_bd_pins axi_payload_uart16550/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
 assign_bd_address -offset 0x42000000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_payload_uart16550/S_AXI/Reg]
+
+# Configure SPI1 for TTC2
+set_property -dict [list \
+  CONFIG.PCW_SPI1_PERIPHERAL_ENABLE {1} \
+] [get_bd_cells zynq_ps]
+
+create_bd_port -dir O -type clk ttc_spi_sck_o
+create_bd_port -dir I -type data ttc_spi_io1_i
+create_bd_port -dir O -type data ttc_spi_io0_o
+create_bd_port -dir O -type data ttc1_spi_ss_o
+create_bd_port -dir O -type data ttc0_spi_ss_o
+
+connect_bd_net [get_bd_ports ttc_spi_sck_o] [get_bd_pins zynq_ps/spi1_sclk_o]
+connect_bd_net [get_bd_ports ttc_spi_io1_i] [get_bd_pins zynq_ps/spi1_miso_i]
+connect_bd_net [get_bd_ports ttc_spi_io0_o] [get_bd_pins zynq_ps/spi1_mosi_o]
+connect_bd_net [get_bd_ports ttc0_spi_ss_o] [get_bd_pins zynq_ps/spi1_ss_o]
+connect_bd_net [get_bd_ports ttc1_spi_ss_o] [get_bd_pins zynq_ps/spi1_ss1_o]
+
+connect_bd_net [get_bd_pins xlconstant_1/dout] [get_bd_pins zynq_ps/spi1_ss_i]
+connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins zynq_ps/spi1_sclk_i]
+connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins zynq_ps/spi1_mosi_i]
