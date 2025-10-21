@@ -121,6 +121,22 @@
     };
 };
 
+&spi1 {
+    sl_ttc0: spidev@0 {
+        compatible = "spidev";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+    };
+
+    sl_ttc1: spidev@1 {
+        compatible = "spidev";
+        reg = <1>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+    };
+};
+
 &spi0 {
     ltc2983: ltc2983@0 {
         compatible = "adi,ltc2983";

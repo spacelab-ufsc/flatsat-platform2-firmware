@@ -3838,8 +3838,10 @@ CONFIG_Init-manager-systemd=y
 #
 # user packages 
 #
+# CONFIG_edc-test-app is not set
 CONFIG_fsatctl=y
 # CONFIG_gpio-demo is not set
+# CONFIG_obdh-sim is not set
 CONFIG_peekpoke=y
 CONFIG_read-sensors=y
 
