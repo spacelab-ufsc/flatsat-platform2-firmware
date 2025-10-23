@@ -5,3 +5,4 @@ CONFIG_gpio-demo
 CONFIG_peekpoke
 CONFIG_read-sensors
 CONFIG_fsatctl
+CONFIG_obdh2-sim
