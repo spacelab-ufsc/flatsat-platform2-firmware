@@ -123,14 +123,14 @@
 
 &spi1 {
     sl_ttc0: spidev@0 {
-        compatible = "spidev";
+        compatible = "rohm,dh2228fv";
         reg = <0>;
         spi-max-frequency = <1000000>;
         status = "okay";
     };
 
     sl_ttc1: spidev@1 {
-        compatible = "spidev";
+        compatible = "rohm,dh2228fv";
         reg = <1>;
         spi-max-frequency = <1000000>;
         status = "okay";
@@ -150,58 +150,35 @@
         interrupts = <54 1>;
         interrupt-parent = <&gpio0>;
 
-        thermocouple@1 {
-            reg = <1>;
-            adi,sensor-type = <2>;
-            adi,single-ended;
-        };
-
-        thermocouple@3 {
-            reg = <3>;
-            adi,sensor-type = <2>;
-            adi,single-ended;
-        };
-
-        thermocouple@5 {
-            reg = <5>;
-            adi,sensor-type = <2>;
-            adi,single-ended;
-        };
-
-        thermocouple@7 {
-            reg = <7>;
-            adi,sensor-type = <2>;
-            adi,single-ended;
-        };
-
-        thermocouple@9 {
-            reg = <9>;
-            adi,sensor-type = <2>;
-            adi,single-ended;
-        };
-        
-        thermocouple@11 {
+        bjt: diode@11 {
             reg = <11>;
-            adi,sensor-type = <2>;
+            adi,sensor-type = <28>;
             adi,single-ended;
+            adi,average-on;
+            adi,three-conversion-cycles;
         };
 
-        thermocouple@13 {
+        diode0: diode@13 {
             reg = <13>;
-            adi,sensor-type = <2>;
+            adi,sensor-type = <28>;
             adi,single-ended;
+            adi,average-on;
+            adi,three-conversion-cycles;
         };
 
-        thermocouple@15 {
-            reg = <15>;
+        thermocouple@17 {
+            reg = <17>;
             adi,sensor-type = <2>;
             adi,single-ended;
+            adi,cold-junction-handle = <&bjt>;
         };
 
         thermocouple@19 {
             reg = <19>;
             adi,sensor-type = <2>;
             adi,single-ended;
+            adi,cold-junction-handle = <&bjt>;
         };
+
     };
 };
