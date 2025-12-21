@@ -7,7 +7,7 @@ SRCREV = "${AUTOREV}"
 
 SRC_URI = "git://github.com/c-porto/fsat2-engine.git;branch=master;protocol=https"
 
-PV = "1.1.0+git${SRCPV}"
+PV = "1.2+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
