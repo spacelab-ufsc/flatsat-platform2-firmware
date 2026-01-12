@@ -60,6 +60,10 @@
 };
 */
 
+&axi_gpio_edc {
+    label = "edc-gpio-en";
+};
+
 &axi_iic_sens_0 {
     status = "okay";
 	clock-frequency = <100000>;
