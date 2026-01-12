@@ -8,11 +8,11 @@ SRCREV = "${AUTOREV}"
 SRC_URI = "git://github.com/c-porto/obdh2-sim.git;branch=master;protocol=https \
            "
 
-PV = "0.1.2+git${SRCPV}"
+PV = "0.1.3+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "zeromq sqlite3"
+DEPENDS = "zeromq sqlite3 libgpiod"
 
 inherit pkgconfig meson systemd
 
