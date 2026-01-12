@@ -13,6 +13,7 @@
     };
 };
 
+/*
 &axi_iic_0 {
     status = "okay";
 	clock-frequency = <100000>;
@@ -57,6 +58,7 @@
     compatible = "xlnx,xps-timer-1.00.a";
     #pwm-cells = <3>;
 };
+*/
 
 &axi_iic_sens_0 {
     status = "okay";
