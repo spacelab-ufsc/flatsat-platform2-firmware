@@ -10,3 +10,7 @@ set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS18 PULLUP TRUE} [get_ports 
 set_property -dict {PACKAGE_PIN B20 IOSTANDARD LVCMOS18} [get_ports ttc_spi_sck_o]; # SPI_CLK
 set_property -dict {PACKAGE_PIN A20 IOSTANDARD LVCMOS18} [get_ports ttc_spi_io0_o]; # SPI_MOSI
 set_property -dict {PACKAGE_PIN P18 IOSTANDARD LVCMOS18} [get_ports ttc_spi_io1_i]; # SPI_MISO
+
+# EDC GPIO
+set_property -dict {PACKAGE_PIN M17 IOSTANDARD LVCMOS18} [get_ports {edc_en_gpio[0]}];
+set_property -dict {PACKAGE_PIN J19 IOSTANDARD LVCMOS18} [get_ports {edc_en_gpio[1]}];

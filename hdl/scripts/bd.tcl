@@ -121,28 +121,28 @@ namespace eval ::fsat_bd {
         assign_bd_address -offset 0x41630000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_iic_1/S_AXI/Reg]
 
         # AXI Timer
-        for {set i 0} {$i < 8} {incr i} {
-            set axi_timer [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timer:2.0 axi_timer_$i]
+        #for {set i 0} {$i < 8} {incr i} {
+        #    set axi_timer [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timer:2.0 axi_timer_$i]
 
-            create_bd_port -dir O -type data pwm_${i}
-            connect_bd_net [get_bd_pins axi_timer_${i}/pwm0] [get_bd_ports pwm_${i}]
-        }
+        #    create_bd_port -dir O -type data pwm_${i}
+        #    connect_bd_net [get_bd_pins axi_timer_${i}/pwm0] [get_bd_ports pwm_${i}]
+        #}
 
-        for {set i 0} {$i < 8} {incr i} {
-            apply_bd_automation -rule xilinx.com:bd_rule:axi4 \
-                -config [list \
-                    Master "/zynq_ps/M_AXI_GP0" \
-                    Slave "/axi_timer_$i/S_AXI" \
-                    intc_ip "axi_cpu_interconnect" \
-                    master_apm "0"] \
-                [get_bd_intf_pins axi_timer_$i/S_AXI]
-        }
+        #for {set i 0} {$i < 8} {incr i} {
+        #    apply_bd_automation -rule xilinx.com:bd_rule:axi4 \
+        #        -config [list \
+        #            Master "/zynq_ps/M_AXI_GP0" \
+        #            Slave "/axi_timer_$i/S_AXI" \
+        #            intc_ip "axi_cpu_interconnect" \
+        #            master_apm "0"] \
+        #        [get_bd_intf_pins axi_timer_$i/S_AXI]
+        #}
 
-        for {set i 0} {$i < 8} {incr i} {
-            set concat_index [expr 3 + $i]
-            connect_bd_net [get_bd_pins axi_timer_${i}/interrupt] \
-                           [get_bd_pins irq_concat/In${concat_index}]
-        }
+        #for {set i 0} {$i < 8} {incr i} {
+        #    set concat_index [expr 3 + $i]
+        #    connect_bd_net [get_bd_pins axi_timer_${i}/interrupt] \
+        #                   [get_bd_pins irq_concat/In${concat_index}]
+        #}
 
         # System Reset
         connect_bd_net -net zynq_ps_fclk_clk0 [get_bd_pins zynq_ps/FCLK_CLK0] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins zynq_ps/M_AXI_GP0_ACLK]
@@ -150,6 +150,14 @@ namespace eval ::fsat_bd {
         connect_bd_net -net xlconstant_0_dout [get_bd_pins xlconstant_0/dout] [get_bd_pins zynq_ps/SDIO0_WP]
 
         # Fabric Interrupt
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In3]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In4]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In5]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In6]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In7]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In8]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In9]
+        connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In10]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In11]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In12]
         connect_bd_net [get_bd_pins xlconstant_0/dout] [get_bd_pins irq_concat/In13]
