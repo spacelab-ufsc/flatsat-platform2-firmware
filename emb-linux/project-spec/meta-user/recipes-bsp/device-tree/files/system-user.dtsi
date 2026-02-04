@@ -19,6 +19,10 @@
 	clock-frequency = <100000>;
 };
 
+&axi_iic_1 {
+    status = "okay";
+	clock-frequency = <100000>;
+};
 &axi_timer_0 {
     compatible = "xlnx,xps-timer-1.00.a";
     #pwm-cells = <3>;
