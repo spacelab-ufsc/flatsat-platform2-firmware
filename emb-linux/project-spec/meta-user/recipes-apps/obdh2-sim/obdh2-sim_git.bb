@@ -5,10 +5,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 SRCREV = "${AUTOREV}"
 
-SRC_URI = "git://github.com/c-porto/obdh2-sim.git;branch=master;protocol=https \
-           "
+SRC_URI = "git://github.com/c-porto/obdh2-sim.git;branch=master;protocol=https"
 
-PV = "0.1.3+git${SRCPV}"
+PV = "0.2.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
