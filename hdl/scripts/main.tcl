@@ -102,7 +102,11 @@ if { $board_part != ""} {
 
 puts $fd "BLOCK DESIGN: $proj_name"
 
-puts $fd "Git Commit: [exec git rev-parse HEAD]"
+if {[catch {exec git rev-parse HEAD} git_hash]} {
+    puts $fd "Git Commit: Unknown"
+} else {
+    puts $fd "Git Commit: $git_hash"
+}
 
 set columns {%40s%30s%15s%50s}
 puts $fd [string repeat - 150]
@@ -123,7 +127,15 @@ launch_runs impl_1 -to_step write_bitstream
             
 wait_on_run impl_1
 
-open_run impl_1        
+open_run impl_1
+
+report_timing_summary -file $outputs_dir/timing_report.txt -name timing_1
+
+report_clock_utilization -file $outputs_dir/clock_utilization.txt -name clocking_1
+
+report_utilization -file $outputs_dir/utilization_report.txt -name utilization_1
+
+report_utilization -hierarchical -file $outputs_dir/utilization_report_hier.txt -name utilization_2
 
 write_bitstream -force $outputs_dir/$proj_name.bit
 write_hw_platform -fixed -force -include_bit -file $outputs_dir/${proj_name}.xsa
