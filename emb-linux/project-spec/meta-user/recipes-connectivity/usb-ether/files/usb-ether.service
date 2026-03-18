@@ -1,0 +1,11 @@
+[Unit]
+Description=Configure USB Ethernet Gadget
+Before=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/setup_usb_gadget.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

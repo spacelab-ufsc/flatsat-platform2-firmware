@@ -1,0 +1,17 @@
+*/*/config.old
+*/*/rootfs_config.old
+build/
+images/linux/
+pre-built/linux/
+.petalinux/*
+!.petalinux/README.md
+*.o
+*.jou
+*.log
+/components/plnx_workspace
+/components/yocto
+**/.Xil
+hardware/
+*.log*
+*.log.*
+*installer.run
