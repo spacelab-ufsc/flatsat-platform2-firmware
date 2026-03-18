@@ -6,13 +6,13 @@ echo "Starting to build FlatSat2 linux image..."
 sed -i 's/BOOT.BIN/boot.bin/g' ./project-spec/meta-user/conf/petalinuxbsp.conf
 
 # Updating the configuration to include newest hw-design
-petalinux-config --silentconfig --get-hw-description hw-design/flatsat.xsa
+petalinux-config --silentconfig --get-hw-description hw-design/flatsat2.xsa
 
 # Actually calling the petalinux tools
 petalinux-build 
 
 # Packaging the image
-petalinux-package --boot --u-boot --fpga --force
+petalinux-package --boot --u-boot --fpga --force 
 
 # Generate the .wic file for QEMU 
 petalinux-package --wic

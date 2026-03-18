@@ -7,28 +7,19 @@ SRCREV = "${AUTOREV}"
 
 SRC_URI = "git://github.com/c-porto/fsatctl.git;branch=master;protocol=https"
 
-PV = "0.2.1+git${SRCPV}"
+PV = "1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "nlohmann-json"
+DEPENDS = "nlohmann-json fsatutils"
 
 inherit pkgconfig meson
 
 FSATCTL_SRC_DIR = "${datadir}/fsatctl"
 
-EXTRA_OEMESON += "-Dinstall_src=true"
-EXTRA_OEMESON += "-Dsrc_install_dir=${FSATCTL_SRC_DIR}"
-
 FILES:${PN} += "${bindir}/fsatctl"
 
-FILES:${PN}-src = " \ 
-            ${FSATCTL_SRC_DIR}/include \
-            ${FSATCTL_SRC_DIR}/src \
-            "
-
 do_install() {
-         install -d ${D}${FSATCTL_SRC_DIR}
 	     install -d ${D}${bindir}
 
          meson install --destdir="${D}" 

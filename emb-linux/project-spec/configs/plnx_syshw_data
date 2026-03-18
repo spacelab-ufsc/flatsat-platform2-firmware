@@ -1,10 +1,10 @@
 device_id: 7z020
-hw_design_name: mz7020_som_base_wrapper
+hw_design_name: flatsat2_wrapper
 processor:
     ps7_cortexa9_0:
         arch: arm
         ip_name: ps7_cortexa9
-        slaves_strings: axi_intc_0 ps7_afi_0 ps7_afi_1 ps7_afi_2 ps7_afi_3 ps7_coresight_comp_0 ps7_ddr_0 ps7_ddrc_0 ps7_dev_cfg_0 ps7_dma_ns ps7_dma_s ps7_ethernet_0 ps7_globaltimer_0 ps7_gpio_0 ps7_gpv_0 ps7_i2c_0 ps7_i2c_1 ps7_intc_dist_0 ps7_iop_bus_config_0 ps7_l2cachec_0 ps7_ocmc_0 ps7_pl310_0 ps7_pmu_0 ps7_qspi_0 ps7_qspi_linear_0 ps7_ram_0 ps7_ram_1 ps7_scuc_0 ps7_scugic_0 ps7_scutimer_0 ps7_scuwdt_0 ps7_sd_0 ps7_slcr_0 ps7_ttc_0 ps7_uart_1 ps7_usb_0 ps7_xadc_0
+        slaves_strings: axi_gpio_edc axi_iic_0 axi_iic_1 axi_iic_sens_0 axi_payload_uart16550 ps7_afi_0 ps7_afi_1 ps7_afi_2 ps7_afi_3 ps7_coresight_comp_0 ps7_ddr_0 ps7_ddrc_0 ps7_dev_cfg_0 ps7_dma_ns ps7_dma_s ps7_ethernet_0 ps7_globaltimer_0 ps7_gpio_0 ps7_gpv_0 ps7_intc_dist_0 ps7_iop_bus_config_0 ps7_l2cachec_0 ps7_ocmc_0 ps7_pl310_0 ps7_pmu_0 ps7_qspi_0 ps7_qspi_linear_0 ps7_ram_0 ps7_ram_1 ps7_scuc_0 ps7_scugic_0 ps7_scutimer_0 ps7_scuwdt_0 ps7_sd_0 ps7_slcr_0 ps7_spi_0 ps7_spi_1 ps7_ttc_0 ps7_uart_1 ps7_usb_0 ps7_xadc_0
         slaves:
             ps7_ddr_0_bankless:
                 device_type: memory
@@ -14,6 +14,9 @@ processor:
             ps7_uart_1:
                 device_type: serial
                 ip_name: ps7_uart
+            axi_payload_uart16550:
+                device_type: serial
+                ip_name: axi_uart16550
             ps7_ethernet_0:
                 device_type: ethernet
                 ip_name: ps7_ethernet
@@ -23,17 +26,17 @@ processor:
             ps7_sd_0:
                 device_type: sd
                 ip_name: ps7_sdio
-            ps7_i2c_0:
-                device_type: i2c
-                ip_name: ps7_i2c
-            ps7_i2c_1:
-                device_type: i2c
-                ip_name: ps7_i2c
             ps7_usb_0:
                 device_type: usb
                 ip_name: ps7_usb
-            axi_intc_0:
-                ip_name: axi_intc
+            axi_gpio_edc:
+                ip_name: axi_gpio
+            axi_iic_0:
+                ip_name: axi_iic
+            axi_iic_1:
+                ip_name: axi_iic
+            axi_iic_sens_0:
+                ip_name: axi_iic
             ps7_afi_0:
                 ip_name: ps7_afi
             ps7_afi_1:
@@ -90,6 +93,10 @@ processor:
                 ip_name: ps7_scuwdt
             ps7_slcr_0:
                 ip_name: ps7_slcr
+            ps7_spi_0:
+                ip_name: ps7_spi
+            ps7_spi_1:
+                ip_name: ps7_spi
             ps7_ttc_0:
                 ip_name: ps7_ttc
             ps7_xadc_0:
