@@ -13,7 +13,6 @@
     };
 };
 
-/*
 &axi_iic_0 {
     status = "okay";
 	clock-frequency = <100000>;
@@ -23,13 +22,15 @@
     status = "okay";
 	clock-frequency = <100000>;
 };
+
+/*
 &axi_timer_0 {
     compatible = "xlnx,xps-timer-1.00.a";
     #pwm-cells = <3>;
 };
 
 &axi_timer_1 {
-    compatible = "xlnx,xps-timer-1.00.a";
+        compatible = "xlnx,xps-timer-1.00.a";
     #pwm-cells = <3>;
 };
 
@@ -168,23 +169,15 @@
             adi,three-conversion-cycles;
         };
 
-        diode0: diode@13 {
+        thermocouple@13 {
             reg = <13>;
-            adi,sensor-type = <28>;
-            adi,single-ended;
-            adi,average-on;
-            adi,three-conversion-cycles;
-        };
-
-        thermocouple@17 {
-            reg = <17>;
             adi,sensor-type = <2>;
             adi,single-ended;
             adi,cold-junction-handle = <&bjt>;
         };
 
-        thermocouple@19 {
-            reg = <19>;
+        thermocouple@15 {
+            reg = <15>;
             adi,sensor-type = <2>;
             adi,single-ended;
             adi,cold-junction-handle = <&bjt>;
