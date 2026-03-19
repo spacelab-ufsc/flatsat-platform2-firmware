@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 SpaceLab UFSC
+# SPDX-License-Identifier: GPL-2.0-only
 
 USB_DEVICE_ID="03fd:0300"
 export ROOT=$(readlink -f $(dirname "$BASH_SOURCE"))

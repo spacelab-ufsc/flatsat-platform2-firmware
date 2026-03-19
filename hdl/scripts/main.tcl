@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2026 SpaceLab UFSC
 # SPDX-License-Identifier: GPL-2.0-only
 
 set proj_name project_1

@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 SpaceLab UFSC
+# SPDX-License-Identifier: GPL-2.0-only
 
 echo "Starting to build FlatSat2 linux image..."
 

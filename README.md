@@ -1,5 +1,5 @@
 <h1 align="center">
-	SpaceLab FlatSat Platform 2.0
+    FLATSAT PLATFORM 2.0
 	<br>
 </h1>
 
@@ -40,18 +40,29 @@
 
 ## Overview
 
+The FlatSat Platform 2.0 is a testbench for testing the main SpaceLab's subsystems (but can be adapted for other CubeSat missions). A FlatSat is an electrical model of the satellite with the subsystems assembled side by side over a workbench that can be mounted during the V&V [[1]](#1). They offer an easier, faster and safer way for testing subsystems before assembly into the final structure of a CubeSat. It can be used in combination with the hardware-in-the-loop (HIL) technique, which justifies the usage of a built-in MicroZed and sensors. It supports up to 6 modules.
+
+This repo contains the firmware project for the platform, which includes both the HDL design and an embedded linux image targetting the Zynq-7000 SoC on the MicroZed.
 
 ## Repository Organization
-	- doc: Technical documentation (including firmware, hardware, user guide, and datasheet).
-	- firmware: FlatSat platform 2.0 firmware project (sources and configs)
-	- hardware: FlatSat platform 2.0 hardware project (sources and outputs).
+	- hdl: HDL design for the platform.
+	- emb-linux: Petalinux project for the platform.
 
 ## License
 
+Unless otherwise noted, original files in this repository are licensed under GPL-2.0-only.
+
+>[!CAUTION]
+>Files originating from AMD/Xilinx tools, PetaLinux, Yocto, Linux, U-Boot, Avnet or other third parties remain under their respective licenses and are not relicensed by this project.
 
 ## Releases
 
+The FlatSat Platform hardware releases are synchronized in order to garantee compatibility. Then, using diferent versions might lead to unpredictable behavior. Refer to the [documentation](https://github.com/spacelab-ufsc/flatsat-platform2/tree/master/doc) for compatibility notes.
 
 ## Notes
 
 More info about the SpaceLab: [GitHub](https://github.com/spacelab-ufsc/spacelab) and [Website](https://spacelab.ufsc.br/en/home/).
+
+## References
+<a id="1">[1]</a> 
+J. C. E. Barcellos, A. W. Spengler, L. O. Seman, R. D. C. e. Silva, H. P. Roldán and E. A. Bezerra, "FlatSat Platforms for Small Satellites: A Systematic Mapping and Classification," in IEEE Journal on Miniaturization for Air and Space Systems, vol. 4, no. 2, pp. 186-198, June 2023, doi: 10.1109/JMASS.2023.3249044.

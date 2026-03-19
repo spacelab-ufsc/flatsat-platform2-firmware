@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2026 SpaceLab UFSC
 # SPDX-License-Identifier: GPL-2.0-only
 
 for { set i 0 } { $i < $argc } { incr i } {

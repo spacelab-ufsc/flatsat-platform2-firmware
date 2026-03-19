@@ -1,11 +1,13 @@
 # Copyright (C) 2024, Advanced Micro Devices, Inc.
 # SPDX-License-Identifier: Apache-2.0
+#
+# Modified by SpaceLab UFSC in 2026 for the FlatSat Platform 2 project.
 
 RM = rm -rf
 VIVADO = $(XILINX_VIVADO)/bin/vivado
 SDTGEN = $(XILINX_VIVADO)/bin/sdtgen
 
-JOBS ?= 16
+JOBS ?= 12
 PROJ_NAME ?= flatsat2
 PLATFORM_NAME ?= floripasat-2
 
