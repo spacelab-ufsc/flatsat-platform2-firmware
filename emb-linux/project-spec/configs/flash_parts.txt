@@ -1,3 +1,0 @@
-flash_type=spi
-boot=0 0x500000
-kernel=0x500000 0xA80000

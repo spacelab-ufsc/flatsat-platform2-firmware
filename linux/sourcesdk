@@ -1,0 +1,7 @@
+export REPO_DIR=$(readlink -f $(dirname "$BASH_SOURCE"))
+
+export TEMPLATECONF=$REPO_DIR/layers/meta-flatsat2/conf/templates/default
+
+export PATH=$PATH:$REPO_DIR/scripts
+
+source $REPO_DIR/layers/poky/oe-init-build-env "$@"

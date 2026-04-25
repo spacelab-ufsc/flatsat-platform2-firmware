@@ -1,0 +1,11 @@
+[Unit]
+Description=Configure USB Ethernet and Mass Storage Gadget
+Before=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/setup_usb_gadget.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

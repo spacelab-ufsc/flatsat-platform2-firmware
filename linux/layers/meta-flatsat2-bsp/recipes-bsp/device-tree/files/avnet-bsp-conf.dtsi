@@ -1,0 +1,27 @@
+/*
+ * Avnet Petalinux BSP dependends on the auto-generated `system-conf.dtsi` file.
+ * This file mimics that configuration.
+ */
+
+&gem0 {
+	local-mac-address = [00 0a 35 00 1e 53];
+};
+
+&qspi {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	flash0: flash@0 {
+		partition@0 {
+			label = "qspi-boot";
+			reg = <0x00000000 0x00500000>;
+		};
+		partition@1 {
+			label = "qspi-kernel";
+			reg = <0x00500000 0x00a80000>;
+		};
+		partition@2 {
+			label = "qspi-bootenv";
+			reg = <0x00f80000 0x00020000>;
+		};
+	};
+};

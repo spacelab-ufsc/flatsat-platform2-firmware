@@ -1,0 +1,22 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+REPO_DIR := "${@os.path.abspath(os.path.join('${TOPDIR}', '..'))}"
+
+BBLAYERS ?= " \
+  ${REPO_DIR}/layers/poky/meta \
+  ${REPO_DIR}/layers/poky/meta-poky \
+  ${REPO_DIR}/layers/meta-xilinx/meta-xilinx-core \
+  ${REPO_DIR}/layers/meta-xilinx/meta-xilinx-standalone \
+  ${REPO_DIR}/layers/meta-xilinx-tools \
+  ${REPO_DIR}/layers/meta-openembedded/meta-oe \
+  ${REPO_DIR}/layers/meta-openembedded/meta-python \
+  ${REPO_DIR}/layers/meta-openembedded/meta-networking \
+  ${REPO_DIR}/layers/meta-openembedded/meta-filesystems \
+  ${REPO_DIR}/layers/meta-flatsat2-bsp \
+  ${REPO_DIR}/layers/meta-flatsat2 \
+  "
