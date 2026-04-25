@@ -1,0 +1,16 @@
+[submodule "linux/layers/meta-openembedded"]
+	path = linux/layers/meta-openembedded
+	url = https://git.openembedded.org/meta-openembedded
+	branch = langdale
+[submodule "linux/layers/poky"]
+	path = linux/layers/poky
+	url = https://git.yoctoproject.org/poky
+	branch = langdale
+[submodule "linux/layers/meta-xilinx"]
+	path = linux/layers/meta-xilinx
+	url = https://github.com/Xilinx/meta-xilinx.git
+	branch = rel-v2023.1
+[submodule "linux/layers/meta-xilinx-tools"]
+	path = linux/layers/meta-xilinx-tools
+	url = https://github.com/Xilinx/meta-xilinx-tools.git
+	branch = rel-v2023.1
