@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 SpaceLab UFSC
 # SPDX-License-Identifier: GPL-2.0-only
 
-namespace eval ::fsat_bd {
+namespace eval fsat_bd {
     proc create_zynq_ps {} {
     # Zynq Processing System Instance for Block Design
         set zynq_ps [create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 zynq_ps]

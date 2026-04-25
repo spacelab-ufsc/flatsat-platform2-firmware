@@ -7,7 +7,7 @@ RM = rm -rf
 VIVADO = $(XILINX_VIVADO)/bin/vivado
 SDTGEN = $(XILINX_VIVADO)/bin/sdtgen
 
-JOBS ?= 12
+JOBS ?= 8
 PROJ_NAME ?= flatsat2
 PLATFORM_NAME ?= floripasat-2
 

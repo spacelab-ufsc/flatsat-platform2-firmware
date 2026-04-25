@@ -7,6 +7,7 @@ set output_dir outputs
 set script_dir [file dirname [info script]]
 set version_file [file join $script_dir .. VERSION]
 set xdc_list {xdc/flatsat2.xdc xdc/bitstream_compression_enable.xdc}
+set board_store_dir "$env(HOME)/.Xilinx/Vivado/2023.1/xhub/board_store/xilinx_board_store"
 
 set fh [open $version_file]
 set version [string trim [read $fh]]
@@ -36,6 +37,8 @@ create_project $proj_name $proj_dir/$proj_name -force -part xc7z020clg400-1
 
 # Project configuration
 set obj [current_project]
+#set_property -name "board_part_repo_paths" -value "[file normalize "$board_store_dir"]" -objects $obj
+#set_property -name "board_part" -value "avnet.com:microzed_7020:part0:1.3" -objects $obj
 set_property -name "default_lib" -value "xil_defaultlib" -objects $obj
 set_property -name "enable_resource_estimation" -value "0" -objects $obj
 set_property -name "enable_vhdl_2008" -value "1" -objects $obj
@@ -50,9 +53,6 @@ set_property -name "platform.design_intent.embedded" -value "true" -objects $obj
 set_property -name "platform.design_intent.external_host" -value "false" -objects $obj
 set_property -name "platform.design_intent.server_managed" -value "false" -objects $obj
 set_property -name "platform.extensible" -value "1" -objects $obj
-set_property -name "platform.name" -value "flatsat2" -objects $obj
-set_property -name "platform.vendor" -value "SpaceLab" -objects $obj
-set_property -name "platform.version" -value "$version" -objects $obj
 set_property -name "revised_directory_structure" -value "1" -objects $obj
 set_property -name "sim.central_dir" -value "$proj_dir/$proj_name.ip_user_files" -objects $obj
 set_property -name "sim.ip.auto_export_scripts" -value "1" -objects $obj
@@ -64,7 +64,7 @@ set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 # Include XDC Constraints
 import_files -fileset constrs_1 $xdc_list
 
-::fsat_bd::create_base_design $proj_name $version
+fsat_bd::create_base_design $proj_name $version
 
 set platform_dir $script_dir/designs/$platform_name
 
@@ -124,7 +124,7 @@ close $fd
 launch_runs synth_1 -jobs $jobs
 wait_on_run synth_1
     
-launch_runs impl_1 -to_step write_bitstream
+launch_runs impl_1 -to_step write_bitstream -jobs $jobs
             
 wait_on_run impl_1
 
