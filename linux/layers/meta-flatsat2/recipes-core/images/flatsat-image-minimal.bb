@@ -10,4 +10,5 @@ IMAGE_INSTALL:append = " dtoverlay \
                          libcsp-dev \
                          libcsp-examples \
                          fsatctl \
+                         sd-rootfs-resize \
                         "
