@@ -1,0 +1,32 @@
+/dts-v1/;
+/plugin/;
+
+&axi_iic_0 {
+    status = "okay";
+    clock-frequency = <100000>;
+};
+
+&axi_iic_1 {
+    status = "okay";
+    clock-frequency = <100000>;
+};
+
+&axi_gpio_edc {
+    label = "edc-gpio-en";
+};
+
+&spi1 {
+    sl_ttc0: spidev@0 {
+        compatible = "rohm,dh2228fv";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+    };
+
+    sl_ttc1: spidev@1 {
+        compatible = "rohm,dh2228fv";
+        reg = <1>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+    };
+};

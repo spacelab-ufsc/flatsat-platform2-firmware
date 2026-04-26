@@ -1,62 +1,9 @@
-&axi_iic_0 {
-    status = "okay";
-	clock-frequency = <100000>;
-};
-
-&axi_iic_1 {
-    status = "okay";
-	clock-frequency = <100000>;
-};
-
-/*
-&axi_timer_0 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_1 {
-        compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_2 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_3 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_4 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_5 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_6 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-
-&axi_timer_7 {
-    compatible = "xlnx,xps-timer-1.00.a";
-    #pwm-cells = <3>;
-};
-*/
-
-&axi_gpio_edc {
-    label = "edc-gpio-en";
-};
+/dts-v1/;
+/plugin/;
 
 &axi_iic_sens_0 {
     status = "okay";
-	clock-frequency = <100000>;
+    clock-frequency = <100000>;
     #address-cells = <1>;
     #size-cells = <0>;
 
@@ -117,22 +64,6 @@
     };
 };
 
-&spi1 {
-    sl_ttc0: spidev@0 {
-        compatible = "rohm,dh2228fv";
-        reg = <0>;
-        spi-max-frequency = <1000000>;
-        status = "okay";
-    };
-
-    sl_ttc1: spidev@1 {
-        compatible = "rohm,dh2228fv";
-        reg = <1>;
-        spi-max-frequency = <1000000>;
-        status = "okay";
-    };
-};
-
 &spi0 {
     ltc2983: ltc2983@0 {
         compatible = "adi,ltc2983";
@@ -167,6 +98,5 @@
             adi,single-ended;
             adi,cold-junction-handle = <&bjt>;
         };
-
     };
 };

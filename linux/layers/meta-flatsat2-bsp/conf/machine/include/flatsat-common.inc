@@ -21,8 +21,10 @@ require conf/machine/zynq-generic.conf
 SPL_BINARY ?= "spl/boot.bin"
 
 IMAGE_FSTYPES:remove = "cpio cpio.gz cpio.gz.u-boot"
-IMAGE_FSTYPES += "ext4 wic"
+IMAGE_FSTYPES += "ext4 wic wic.bmap"
 
 KERNEL_IMAGETYPES:remove = "zImage"
 
 MACHINE_FEATURES += "fpga-overlay"
+
+MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "flatsat-bitstream flatsat2-overlays"
