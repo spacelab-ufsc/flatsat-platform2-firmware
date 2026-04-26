@@ -27,7 +27,7 @@ Next, run the following command to build the linux image for the microzed:
 bitbake flatsat-image-minimal-dev
 ```
 
->[!NOTE]
+>[!WARNING]
 >The build should take quite some time and occupy at least 60GB of disk space, so have those in mind before building it!
 
 After building the image, the image files should be deploy to the `build/tmp/deploy/images/microzed` directory.
@@ -49,7 +49,9 @@ docker run --rm -it -v $(pwd):/workdir crops/poky --workdir=/workdir
 
 ## Booting the linux image
 
-In order to boot the image on MicroZed a SD card must be prepared and flashed with the wic image (naturally the MicroZed boot jumpers must also be configure to boot from the SD). After the build process the wic image should be in the deploy directory reference before and should be named as `flatsat2.wic`. Then, with the connected SD Card and image file ready, you can use any flash tool that you desire, such as `dd` or `bmaptool`. Examples on how to do that can be seen below.
+In order to boot the image on MicroZed a SD card must be prepared and flashed with the wic image (naturally the MicroZed boot jumpers must also be configure to boot from the SD). After the build process the wic image should be in the deploy directory reference before and should be named as `flatsat2.wic`. Then, with the connected SD card and image file ready, you can use any flash tool that you desire, such as `dd` or `bmaptool`. 
+
+Examples on how to flash the SD card can be seen below:
 
 ``` bash
 sudo dd if=<path-to-wic-image>/flatsat2.wic of=<path-to-SD-card> bs=8M status=progress 
