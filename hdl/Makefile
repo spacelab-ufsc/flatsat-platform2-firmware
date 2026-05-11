@@ -10,6 +10,7 @@ SDTGEN = $(XILINX_VIVADO)/bin/sdtgen
 JOBS ?= 8
 PROJ_NAME ?= flatsat2
 PLATFORM_NAME ?= floripasat-2
+HW_BOARD_NAME ?= microzed
 
 VIV_PRJ_DIR = hw_project
 SDT_PRJ_DIR = hw_project_sdt
@@ -37,7 +38,7 @@ all: xsa sdt
 
 xsa: $(VIV_XSA)
 $(VIV_XSA): $(VIV_SRC)
-	$(VIVADO) -mode batch -notrace -source $(VIV_SRC) -tclargs -jobs $(JOBS) -proj_name $(PROJ_NAME) -platform_name $(PLATFORM_NAME)
+	$(VIVADO) -mode batch -notrace -source $(VIV_SRC) -tclargs -jobs $(JOBS) -proj_name $(PROJ_NAME) -platform_name $(PLATFORM_NAME) -hw_board_name $(HW_BOARD_NAME)
 
 sdt:
 	$(SDTGEN) $(SDTGEN_SRC) -proj_dir $(VIV_PRJ_DIR) -xsa_name $(PROJ_NAME) -outdir $(SDT_PRJ_DIR)

@@ -30,6 +30,7 @@ Options for customizing the design are available below:
     * JOBS: Number of threads used by Vivado during runs.
     * PROJ_NAME: Name of the project, also names the block design and hardware files.
     * PLATFORM_NAME: Platform name, used for design customization (See `Updating the Design`_ for more details).
+    * HW_BOARD_NAME: Board name, used to select which board the design must target.
 
 .. _update_design:
 
@@ -48,6 +49,15 @@ Adding a new Platform
 Adding a new platform is quite simple, just create a new directory under ``scripts/designs`` with the name of the platform, then create a tcl script named ``platform.tcl``, which is the script to be sourced by the main script.
 
 One example on how to do this can be seen looking at ``scripts/designs/floripasat-2``, which contains the PL design for the FloripaSat-2 platform.
+
+Hardware Board Options
+----------------------
+
+Support of the HDL design for more boards can be implemented through the ``HW_BOARD_NAME`` variable and some adaptations to the tcl scripts. An example design for the ZedBoard, without the complete functionality of the platform, is provided in the scripts. To build that example you can use the following command:
+
+.. code-block:: bash
+
+   make xsa HW_BOARD_NAME="zedboard" PLATFORM_NAME=""
 
 Vivado's Docker
 ---------------
