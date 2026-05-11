@@ -33,15 +33,9 @@ Table of Contents
 =================
 
   I. Adding the meta-flatsat2-bsp layer to your build
- II. Misc
 
 
 I. Adding the meta-flatsat2-bsp layer to your build
 =================================================
 
 Run 'bitbake-layers add-layer meta-flatsat2-bsp'
-
-II. Misc
-========
-
---- replace with specific information about the meta-flatsat2-bsp layer ---

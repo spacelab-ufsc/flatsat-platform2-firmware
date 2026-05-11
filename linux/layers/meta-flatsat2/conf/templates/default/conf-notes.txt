@@ -1,2 +1,20 @@
-FIXME: Please place here the description of this build configuration.
-It will be shown to the users when they set up their builds via TEMPLATECONF.
+Build configuration for the FlatSat2 Platform!
+
+Defaults to `microzed` as the MACHINE. More MACHINEs are available at the meta-flatsat2-bsp layer.
+
+Layer Configuration:
+
+layer                 path                                      priority
+==========================================================================
+meta                  /workdir/layers/poky/meta                 5
+meta-poky             /workdir/layers/poky/meta-poky            5
+meta-xilinx-core      /workdir/layers/meta-xilinx/meta-xilinx-core  5
+meta-xilinx-standalone  /workdir/layers/meta-xilinx/meta-xilinx-standalone  7
+meta-xilinx-tools     /workdir/layers/meta-xilinx-tools         8
+meta-oe               /workdir/layers/meta-openembedded/meta-oe  5
+meta-python           /workdir/layers/meta-openembedded/meta-python  5
+meta-networking       /workdir/layers/meta-openembedded/meta-networking  5
+meta-filesystems      /workdir/layers/meta-openembedded/meta-filesystems  5
+meta-flatsat2-bsp     /workdir/layers/meta-flatsat2-bsp         9
+meta-flatsat2         /workdir/layers/meta-flatsat2             9
+
