@@ -5,11 +5,11 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;md5=801f80980d171d
 inherit fpgamanager_dtg
 
 SRC_URI:zedboard = "\
-    file://v1_zed.xsa \
+    file://zedboard.xsa \
     "
 
 SRC_URI:microzed = "\
-    file://v1_flatsat2.xsa \
+    file://microzed.xsa \
     "
 
 COMPATIBLE_MACHINE ?= "^$"

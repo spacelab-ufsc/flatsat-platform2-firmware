@@ -11,7 +11,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 DT_CUSTOM_INCLUDES = ""
 
 DT_CUSTOM_INCLUDES:append:zedboard = " \
-    zed-leds.dtsi \
     zynq-zed.dtsi \
 "
 
