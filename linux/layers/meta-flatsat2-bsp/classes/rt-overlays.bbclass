@@ -19,4 +19,4 @@ do_install:append() {
 
 FILES:${PN} += "${DT_OVERLAYS_INSTALL_DIR}/*.dtbo"
 
-RDEPENDS:${PN} += "fpga-manager-script"
+RDEPENDS:${PN} += "fpga-manager-script dtoverlay"

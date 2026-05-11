@@ -3,8 +3,7 @@ LICENSE = "MIT"
 
 require inc/flatsat-image-common.inc
 
-IMAGE_INSTALL:append = " dtoverlay \
-                         usb-ether \
+IMAGE_INSTALL:append = " usb-ether \
                          sqlite3 \
                          libcsp \
                          libcsp-dev \
