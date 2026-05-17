@@ -1,0 +1,123 @@
+_pl_firmwarectl_projects()
+{
+    local root="${XILINX_FW_DIR:-/lib/firmware/xilinx}"
+    local dir
+
+    [[ -d "$root" ]] || return 0
+    for dir in "$root"/*; do
+        [[ -d "$dir" ]] && printf '%s\n' "${dir##*/}"
+    done
+}
+
+_pl_firmwarectl_overlays()
+{
+    local root="${OVERLAY_FW_DIR:-/lib/firmware/overlays}"
+    local file
+
+    [[ -d "$root" ]] || return 0
+    for file in "$root"/*.dtbo; do
+        [[ -f "$file" ]] && printf '%s\n' "${file##*/}"
+    done
+}
+
+_pl_firmwarectl_project_overlays()
+{
+    local project="$1"
+    local root="${XILINX_FW_DIR:-/lib/firmware/xilinx}/$project"
+    local file
+
+    [[ -d "$root" ]] || return 0
+    for file in "$root"/*.dtbo; do
+        [[ -f "$file" ]] && printf '%s\n' "${file##*/}"
+    done
+}
+
+_pl_firmwarectl_bitstreams()
+{
+    local project="$1"
+    local root="${XILINX_FW_DIR:-/lib/firmware/xilinx}/$project"
+    local file
+
+    [[ -d "$root" ]] || return 0
+    for file in "$root"/*.bit.bin "$root"/*.bit "$root"/*.bin; do
+        [[ -f "$file" ]] && printf '%s\n' "${file##*/}"
+    done
+}
+
+_pl_firmwarectl()
+{
+    local cur prev words cword command project command_index first_arg_index
+    local commands="status list-projects list-overlays load-project unload-project load-overlay unload-overlay"
+
+    words=("${COMP_WORDS[@]}")
+    cword=$COMP_CWORD
+    cur="${words[$cword]}"
+    prev="${words[$((cword - 1))]}"
+
+    if [[ "$cword" -eq 1 ]]; then
+        COMPREPLY=( $(compgen -W "--json $commands" -- "$cur") )
+        return
+    fi
+
+    command_index=1
+    command="${words[$command_index]}"
+    if [[ "$command" == "--json" ]]; then
+        if [[ "$cword" -eq 2 ]]; then
+            COMPREPLY=( $(compgen -W "$commands" -- "$cur") )
+            return
+        fi
+        command_index=2
+        command="${words[2]}"
+    fi
+    first_arg_index=$((command_index + 1))
+
+    case "$command" in
+        list-overlays)
+            if [[ "$prev" == "--project" ]]; then
+                COMPREPLY=( $(compgen -W "$(_pl_firmwarectl_projects)" -- "$cur") )
+            else
+                COMPREPLY=( $(compgen -W "--project" -- "$cur") )
+            fi
+            ;;
+        load-project)
+            project=""
+            for word in "${words[@]:$first_arg_index}"; do
+                [[ "$word" != --* ]] && { project="$word"; break; }
+            done
+
+            case "$prev" in
+                --bitstream)
+                    COMPREPLY=( $(compgen -W "$(_pl_firmwarectl_bitstreams "$project")" -- "$cur") )
+                    ;;
+                --overlay)
+                    COMPREPLY=( $(compgen -W "$(_pl_firmwarectl_project_overlays "$project")" -- "$cur") )
+                    ;;
+                *)
+                    if [[ -z "$project" || "$cur" != --* && "$cword" -le "$first_arg_index" ]]; then
+                        COMPREPLY=( $(compgen -W "$(_pl_firmwarectl_projects)" -- "$cur") )
+                    else
+                        COMPREPLY=( $(compgen -W "--bitstream --overlay --no-overlay --force" -- "$cur") )
+                    fi
+                    ;;
+            esac
+            ;;
+        unload-project)
+            COMPREPLY=( $(compgen -W "$(_pl_firmwarectl_projects)" -- "$cur") )
+            ;;
+        load-overlay)
+            if [[ "$cur" == *=* ]]; then
+                COMPREPLY=()
+            else
+                COMPREPLY=( $(compgen -W "$(_pl_firmwarectl_overlays)" -- "$cur") )
+            fi
+            ;;
+        unload-overlay)
+            COMPREPLY=( $(compgen -W "all $(_pl_firmwarectl_overlays)" -- "$cur") )
+            ;;
+        *)
+            COMPREPLY=()
+            ;;
+    esac
+}
+
+complete -F _pl_firmwarectl pl-firmwarectl

@@ -29,3 +29,4 @@ IMAGE_INSTALL = " \
 IMAGE_INSTALL:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'fpga-overlay', ' fpga-manager-script', '', d)}"
 IMAGE_INSTALL:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'fpga-overlay', ' flatsat-bitstream', '', d)}"
 IMAGE_INSTALL:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'fpga-overlay', ' dtoverlay', '', d)}"
+IMAGE_INSTALL:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'fpga-overlay', ' pl-firmwarectl', '', d)}"
