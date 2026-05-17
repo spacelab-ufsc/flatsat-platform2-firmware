@@ -7,7 +7,7 @@ SRCREV = "${AUTOREV}"
 
 SRC_URI = "git://github.com/c-porto/fsat_read_sensors.git;branch=master;protocol=https"
 
-PV = "1.2+git${SRCPV}"
+PV = "2.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
