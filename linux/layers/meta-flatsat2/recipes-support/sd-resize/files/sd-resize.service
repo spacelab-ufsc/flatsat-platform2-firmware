@@ -1,0 +1,17 @@
+[Unit]
+Description=Initialize and grow experiment SD partition
+DefaultDependencies=no
+After=systemd-udev-settle.service
+Before=local-fs-pre.target shutdown.target
+Wants=systemd-udev-settle.service
+Conflicts=shutdown.target
+ConditionPathExists=!/var/lib/sd-experiment-initialized
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/sd-rootfs-resize.sh
+RemainAfterExit=yes
+StandardOutput=journal+console
+
+[Install]
+WantedBy=local-fs-pre.target

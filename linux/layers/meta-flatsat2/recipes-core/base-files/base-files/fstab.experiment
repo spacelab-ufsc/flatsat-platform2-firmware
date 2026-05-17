@@ -1,0 +1,2 @@
+LABEL=boot        /boot        vfat  defaults,noatime,nofail  0  2
+LABEL=experiment  /experiment  ext4  defaults,noatime,nofail  0  2

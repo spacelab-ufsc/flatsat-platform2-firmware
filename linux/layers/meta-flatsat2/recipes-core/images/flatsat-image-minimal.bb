@@ -9,5 +9,5 @@ IMAGE_INSTALL:append = " usb-ether \
                          libcsp-dev \
                          libcsp-examples \
                          fsatctl \
-                         sd-rootfs-resize \
+                         sd-resize \
                         "

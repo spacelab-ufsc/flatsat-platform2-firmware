@@ -1,0 +1,6 @@
+# Description: Creates a partitioned SD card image. Boot files
+# are located in the first vfat partition. Rootfs will be in second ext4 partition. A third partition is used to store persistent data over DFU updates.
+
+part  /boot  --source rootfs --change-directory=boot  --fixed-size=512M  --fstype=vfat  --use-label  --label boot  --active  --align 4 --no-fstab-update
+part  /      --source rootfs --exclude-path=boot/     --fixed-size=2G    --fstype=ext4  --use-label  --label root            --align 4 --no-fstab-update
+part  /experiment  --source empty  --fixed-size=8M  --fstype=ext4  --use-label  --label experiment  --align 4 --no-fstab-update
