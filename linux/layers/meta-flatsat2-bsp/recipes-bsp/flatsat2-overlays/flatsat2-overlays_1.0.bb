@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;md5=801f80980d171d
 
 inherit rt-overlays
 
-SRC_URI:microzed = "\
+SRC_URI = "\
     file://flatsat-sensors.dts \
     file://axi-periph-config.dts \
     "
