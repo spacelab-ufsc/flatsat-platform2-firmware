@@ -3,3 +3,13 @@
 **/hw_project
 *.jou
 *.log
+ips/*/component.xml
+ips/*/xgui/
+ips/*/*.cache/
+ips/*/*.gen/
+ips/*/*.hw/
+ips/*/*.ip_user_files/
+ips/*/*.runs/
+ips/*/*.sim/
+ips/*/*.srcs/
+ips/*/*.xpr
