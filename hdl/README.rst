@@ -20,6 +20,31 @@ To build all the artifacts run:
 
    make all
 
+Local Vivado IPs
+~~~~~~~~~~~~~~~~
+
+Local IP cores are kept under ``ips/<ip-name>``. Each IP directory should provide
+one Tcl packaging script, which sources ``scripts/ip.tcl`` and calls the
+``fsat_ip`` helpers. To package only the local IP repository, run:
+
+.. code-block:: bash
+
+   make ips
+
+The ``xsa`` target depends on ``ips``, so ``make xsa`` and ``make all`` package
+local IPs before creating the Vivado project. The Makefile exports
+``FSAT_IPS_DIR`` and ``FSAT_SCRIPTS_DIR`` so IP scripts can be launched from
+their own directories while still finding the common helpers.
+
+The generated Vivado project adds ``FSAT_IPS_DIR`` to ``ip_repo_paths`` and
+updates the IP catalog. Platform scripts can then instantiate local IPs by VLNV:
+
+.. code-block:: tcl
+
+   create_bd_cell -type ip \
+       -vlnv spacelab.ufsc.br:ip:spi_cs_decoder:1.0 \
+       spi_cs_decoder_0
+
 .. note:: The SDT target will only run on recent versions of Vivado, any version after 2024.2 should work fine.
 
 Makefile Options
@@ -31,6 +56,7 @@ Options for customizing the design are available below:
     * PROJ_NAME: Name of the project, also names the block design and hardware files.
     * PLATFORM_NAME: Platform name, used for design customization (See `Updating the Design`_ for more details).
     * HW_BOARD_NAME: Board name, used to select which board the design must target.
+    * IPS_DIR: Directory containing local Vivado IP cores.
 
 .. _update_design:
 

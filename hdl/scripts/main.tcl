@@ -3,7 +3,11 @@
 
 set proj_name project_1
 set proj_dir ./hw_project
-set script_dir [file dirname [info script]]
+if {[info exists ::env(FSAT_SCRIPTS_DIR)] && $::env(FSAT_SCRIPTS_DIR) ne ""} {
+    set script_dir [file normalize $::env(FSAT_SCRIPTS_DIR)]
+} else {
+    set script_dir [file dirname [file normalize [info script]]]
+}
 set version_file [file join $script_dir .. VERSION]
 set board_store_dir "$env(HOME)/.Xilinx/Vivado/2023.1/xhub/board_store/xilinx_board_store"
 
@@ -79,6 +83,20 @@ set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "target_language" -value "Verilog" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
+
+if {[info exists ::env(FSAT_IPS_DIR)] && $::env(FSAT_IPS_DIR) ne ""} {
+    set ips_dir [file normalize $::env(FSAT_IPS_DIR)]
+    if {[file isdirectory $ips_dir]} {
+        set ip_repo_paths [get_property ip_repo_paths [current_fileset]]
+        if {[lsearch -exact $ip_repo_paths $ips_dir] < 0} {
+            lappend ip_repo_paths $ips_dir
+        }
+        set_property ip_repo_paths $ip_repo_paths [current_fileset]
+        update_ip_catalog
+    } else {
+        puts "WARNING: IP repository directory does not exist: $ips_dir"
+    }
+}
 
 set xdc_list {xdc/bitstream_compression_enable.xdc}
 
