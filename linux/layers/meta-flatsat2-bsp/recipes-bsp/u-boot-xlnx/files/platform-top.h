@@ -8,6 +8,7 @@
   "\"boot.bin fat 0 1\;"                                                       \
   "boot.scr fat 0 1\;"                                                         \
   "uImage fat 0 1\";"                                                          \
+  "system.dtb fat 0 1\";"                                                      \
   "dfu 0 mmc 0\0"
 
 #define DFU_ALT_INFO_MMC_ROOTFS                                                \
