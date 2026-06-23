@@ -74,8 +74,9 @@ sdt:
 
 .PHONY: clean-ips
 clean-ips:
-	$(RM) $(foreach ip_dir,$(IP_DIRS),$(ip_dir)component.xml $(ip_dir)xgui $(ip_dir)*.cache $(ip_dir)*.gen $(ip_dir)*.hw $(ip_dir)*.ip_user_files $(ip_dir)*.runs $(ip_dir)*.sim $(ip_dir)*.srcs $(ip_dir)*.xpr)
+	$(RM) $(foreach ip_dir,$(IP_DIRS),$(ip_dir)component.xml $(ip_dir)xgui $(ip_dir)*.cache $(ip_dir)*.gen $(ip_dir)*.hw $(ip_dir)*.ip_user_files $(ip_dir)*.runs $(ip_dir)*.sim $(ip_dir)*.srcs $(ip_dir)*.xpr $(ip_dir)*.log $(ip_dir)*.jou)
 
 .PHONY: clean
 clean: clean-ips
+	$(RM) $(VIV_PRJ_DIR)/../*.log $(VIV_PRJ_DIR)/../*.jou
 	$(RM) $(VIV_PRJ_DIR) $(SDT_PRJ_DIR)
