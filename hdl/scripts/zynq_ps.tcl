@@ -57,14 +57,10 @@ namespace eval fsat_bd {
             CONFIG.PCW_EN_CLK2_PORT {0} \
             CONFIG.PCW_EN_CLK3_PORT {0} \
             CONFIG.PCW_EN_DDR {1} \
-            CONFIG.PCW_EN_EMIO_I2C0 {0} \
-            CONFIG.PCW_EN_EMIO_I2C1 {0} \
             CONFIG.PCW_EN_EMIO_TTC0 {1} \
             CONFIG.PCW_EN_EMIO_WP_SDIO0 {1} \
             CONFIG.PCW_EN_ENET0 {1} \
             CONFIG.PCW_EN_GPIO {1} \
-            CONFIG.PCW_EN_I2C0 {1} \
-            CONFIG.PCW_EN_I2C1 {1} \
             CONFIG.PCW_EN_QSPI {1} \
             CONFIG.PCW_EN_RST0_PORT {1} \
             CONFIG.PCW_EN_RST1_PORT {0} \
@@ -88,8 +84,7 @@ namespace eval fsat_bd {
             CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} \
             CONFIG.PCW_GPIO_MIO_GPIO_IO {MIO} \
             CONFIG.PCW_GPIO_PERIPHERAL_ENABLE {1} \
-            CONFIG.PCW_I2C0_PERIPHERAL_ENABLE {1} \
-            CONFIG.PCW_I2C1_PERIPHERAL_ENABLE {1} \
+            CONFIG.PCW_I2C1_PERIPHERAL_ENABLE {0} \
             CONFIG.PCW_I2C_PERIPHERAL_FREQMHZ {111.111115} \
             CONFIG.PCW_I2C_RESET_ENABLE {0} \
             CONFIG.PCW_IRQ_F2P_INTR {1} \
@@ -334,8 +329,17 @@ namespace eval fsat_bd {
             CONFIG.PCW_USE_FABRIC_INTERRUPT {1} \
             CONFIG.PCW_USE_M_AXI_GP0 {1} \
             CONFIG.PCW_USE_M_AXI_GP1 {0} \
-            CONFIG.PCW_CAN0_PERIPHERAL_ENABLE {0} \
-            CONFIG.PCW_CAN1_PERIPHERAL_ENABLE {0} \
+            CONFIG.PCW_CAN0_CAN0_IO {MIO 10 .. 11} \
+            CONFIG.PCW_CAN0_PERIPHERAL_ENABLE {1} \
+            CONFIG.PCW_CAN1_CAN1_IO {MIO 12 .. 13} \
+            CONFIG.PCW_CAN1_PERIPHERAL_ENABLE {1} \
+            CONFIG.PCW_I2C0_I2C0_IO {MIO 14 .. 15} \
+            CONFIG.PCW_I2C0_PERIPHERAL_ENABLE {1} \
+            CONFIG.PCW_EN_EMIO_I2C0 {0} \
+            CONFIG.PCW_EN_I2C0 {1} \
+            CONFIG.PCW_I2C1_PERIPHERAL_ENABLE {0} \
+            CONFIG.PCW_EN_EMIO_I2C1 {0} \
+            CONFIG.PCW_EN_I2C1 {0} \
             CONFIG.PCW_SPI0_PERIPHERAL_ENABLE {1} \
         ] $zynq_ps
 

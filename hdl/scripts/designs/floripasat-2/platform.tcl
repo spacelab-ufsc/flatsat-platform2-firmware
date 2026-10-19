@@ -88,3 +88,33 @@ connect_bd_net [get_bd_pins axi_cpu_interconnect/M${mi_str}_ARESETN] [get_bd_pin
 connect_bd_net [get_bd_pins axi_gpio_edc/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
 connect_bd_net [get_bd_pins axi_gpio_edc/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
 assign_bd_address -offset 0x42010000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_gpio_edc/S_AXI/Reg]
+
+#set iic_0 [create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_0]
+#set iic_1 [create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_1]
+
+# IIC for open drain translator
+#set axi_iic_0 [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_0]
+#set_property -dict [list \
+#    CONFIG.IIC_FREQ_KHZ {100} \
+#] $axi_iic_0
+
+#set axi_iic_1 [create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_1]
+#set_property -dict [list \
+#    CONFIG.IIC_FREQ_KHZ {100} \
+#] $axi_iic_1
+
+# I2C axi_iic for open drain translator
+#connect_bd_intf_net [get_bd_intf_pins axi_iic_0/S_AXI] [get_bd_intf_pins axi_cpu_interconnect/M02_AXI]
+#connect_bd_net [get_bd_pins axi_iic_0/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
+#connect_bd_net [get_bd_pins axi_iic_0/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+#connect_bd_intf_net [get_bd_intf_pins iic_0] [get_bd_intf_pins axi_iic_0/IIC]
+#connect_bd_net [get_bd_pins axi_iic_0/iic2intc_irpt] [get_bd_pins irq_concat/In2]
+#assign_bd_address -offset 0x41620000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_iic_0/S_AXI/Reg]
+
+# I2C axi_iic for second open drain translator
+#connect_bd_intf_net [get_bd_intf_pins axi_iic_1/S_AXI] [get_bd_intf_pins axi_cpu_interconnect/M01_AXI]
+#connect_bd_net [get_bd_pins axi_iic_1/s_axi_aclk] [get_bd_pins zynq_ps/FCLK_CLK0]
+#connect_bd_net [get_bd_pins axi_iic_1/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+#connect_bd_intf_net [get_bd_intf_pins iic_1] [get_bd_intf_pins axi_iic_1/IIC]
+#connect_bd_net [get_bd_pins axi_iic_1/iic2intc_irpt] [get_bd_pins irq_concat/In1]
+#assign_bd_address -offset 0x41630000 -range 64K [get_bd_addr_spaces zynq_ps/Data] [get_bd_addr_segs axi_iic_1/S_AXI/Reg]

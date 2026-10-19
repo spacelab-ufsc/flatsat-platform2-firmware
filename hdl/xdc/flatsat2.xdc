@@ -2,21 +2,27 @@
 # SPDX-License-Identifier: GPL-2.0-only
 
 # PL I2C Constraints
-set_property -dict {PACKAGE_PIN K18 IOSTANDARD LVCMOS18} [get_ports {iic_sens_sda_io}];
-set_property -dict {PACKAGE_PIN L17 IOSTANDARD LVCMOS18} [get_ports {iic_sens_scl_io}];
-set_property -dict {PACKAGE_PIN G19 IOSTANDARD LVCMOS18} [get_ports {iic_0_sda_io}]; # H2-49
-set_property -dict {PACKAGE_PIN H20 IOSTANDARD LVCMOS18} [get_ports {iic_0_scl_io}]; # H2-51
-set_property -dict {PACKAGE_PIN G18 IOSTANDARD LVCMOS18} [get_ports {iic_1_sda_io}]; # H1-41
-set_property -dict {PACKAGE_PIN J20 IOSTANDARD LVCMOS18} [get_ports {iic_1_scl_io}]; # H1-43
+#set_property -dict {PACKAGE_PIN K18 IOSTANDARD LVCMOS18} [get_ports {iic_sens_sda_io}];
+#set_property -dict {PACKAGE_PIN L17 IOSTANDARD LVCMOS18} [get_ports {iic_sens_scl_io}];
+#set_property -dict {PACKAGE_PIN G19 IOSTANDARD LVCMOS18} [get_ports {iic_0_sda_io}]; # H2-49
+#set_property -dict {PACKAGE_PIN H20 IOSTANDARD LVCMOS18} [get_ports {iic_0_scl_io}]; # H2-51
+#set_property -dict {PACKAGE_PIN G18 IOSTANDARD LVCMOS18} [get_ports {iic_1_sda_io}]; # H1-41
+#set_property -dict {PACKAGE_PIN J20 IOSTANDARD LVCMOS18} [get_ports {iic_1_scl_io}]; # H1-43
+
+# PL RS485 Constraints
+set_property -dict {PACKAGE_PIN V7 IOSTANDARD LVCMOS33} [get_ports {rs485_0_uart16550_tx}];
+set_property -dict {PACKAGE_PIN T5 IOSTANDARD LVCMOS33} [get_ports {rs485_0_uart16550_rx}];
+set_property -dict {PACKAGE_PIN U7 IOSTANDARD LVCMOS33} [get_ports {rs485_1_uart16550_tx}];
+set_property -dict {PACKAGE_PIN T9 IOSTANDARD LVCMOS33} [get_ports {rs485_1_uart16550_rx}];
 
 # AXI QUAD SPI Constraints
-set_property -dict {PACKAGE_PIN N20 IOSTANDARD LVCMOS18 PULLUP TRUE} [get_ports ltc2983_spi_ss_o]; # SPI_SS # H17
-set_property -dict {PACKAGE_PIN J18 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_sck_o]; # SPI_CLK
-set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_io0_o]; # SPI_MOSI
-set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS18} [get_ports ltc2983_spi_io1_i]; # SPI_MISO
+set_property -dict {PACKAGE_PIN N20 IOSTANDARD LVCMOS33 PULLUP TRUE} [get_ports ltc2983_spi_ss_o]; # SPI_SS # H17
+set_property -dict {PACKAGE_PIN J18 IOSTANDARD LVCMOS33} [get_ports ltc2983_spi_sck_o]; # SPI_CLK
+set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS33} [get_ports ltc2983_spi_io0_o]; # SPI_MOSI
+set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS33} [get_ports ltc2983_spi_io1_i]; # SPI_MISO
 
 # LTC2983 interrupt pin
-set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS18} [get_ports ltc2983_irq_tri_io[0]]; # H2-8
+set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS33} [get_ports ltc2983_irq_tri_io[0]]; # H2-8
 
 # PWM channels
 #set_property -dict {PACKAGE_PIN N20 IOSTANDARD LVCMOS18} [get_ports pwm_0]; # H1-26
@@ -28,4 +34,5 @@ set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS18} [get_ports ltc2983_irq_
 #set_property -dict {PACKAGE_PIN W20 IOSTANDARD LVCMOS18} [get_ports pwm_6]; # H2-21
 #set_property -dict {PACKAGE_PIN U20 IOSTANDARD LVCMOS18} [get_ports pwm_7]; # H2-22
 
-set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 35]];
+set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 35]];
+set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 13]];
